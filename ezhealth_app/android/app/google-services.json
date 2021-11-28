@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "324330044242",
+    "project_id": "ezhealth-app-eea08",
+    "storage_bucket": "ezhealth-app-eea08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324330044242:android:7ef6707af929982a62988b",
+        "android_client_info": {
+          "package_name": "com.example.ezhealth_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324330044242-q1ic88urk39gpkrkhodfajd4irc23k9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ezhealth_app",
+            "certificate_hash": "329eb2854f0c76e6f42560889c25531c7f4d83f3"
+          }
+        },
+        {
+          "client_id": "324330044242-d37dqjv6nenmtk8c5chj8199itl5stc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrmEhV5mwGfprFmI5FIhclGc6vkk4o7ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324330044242-d37dqjv6nenmtk8c5chj8199itl5stc0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
