@@ -6,6 +6,7 @@ import 'package:ezhealth_app/screens/doctor_screen/clinic_days_screen/thursday.d
 import 'package:ezhealth_app/screens/doctor_screen/clinic_days_screen/tuesday.dart';
 import 'package:ezhealth_app/screens/doctor_screen/clinic_days_screen/wednesday.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ChamberScreen extends StatefulWidget {
   final String doctorId;
@@ -72,11 +73,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             MondayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        MondayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: MondayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,
@@ -131,11 +138,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             TuesdayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TuesdayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: TuesdayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,
@@ -190,11 +203,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             WednesdayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        WednesdayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: WednesdayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,
@@ -249,11 +268,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             ThursdayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ThursdayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: ThursdayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,
@@ -308,11 +333,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             FridayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        FridayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: FridayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,
@@ -367,11 +398,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             SaturdayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SaturdayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: SaturdayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,
@@ -426,11 +463,17 @@ class _ChamberScreenState extends State<ChamberScreen> {
                       Container(
                         child: IconButton(
                           onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             SundayScreen(doctorId)));
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SundayScreen(doctorId)));
+                                PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    child: SundayScreen(doctorId)));
                           },
                           icon: Icon(
                             Icons.add,

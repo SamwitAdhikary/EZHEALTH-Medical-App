@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
   @override
@@ -53,8 +54,8 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   }
 
   sendUser(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/user/';
-    final String url = 'http://142.93.212.221/api/uese/';
+    final String url = 'http://192.168.43.2:8000/api/user/';
+    // final String url = 'http://142.93.212.221/api/uese/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
@@ -261,10 +262,16 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
 
                       _saveItem();
 
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => LoginScreen()));
+
                       Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                          PageTransition(
+                              type: PageTransitionType.rightToLeftWithFade,
+                              child: LoginScreen()));
                     }
                   },
                   child: Text('Register'),

@@ -1,5 +1,4 @@
 import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
-import 'package:ezhealth_app/screens/user_screen/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   MaterialPageRoute(
                       builder: (context) => DoctorScreen(userId)));
             } else if (snapshot.value['role'] == 'User') {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => BottomNavBar()));
+              // Navigator.pushReplacement(context,
+              //     MaterialPageRoute(builder: (context) => BottomNavBar()));
             }
           });
         });

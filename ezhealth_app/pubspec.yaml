@@ -20,6 +20,7 @@ dependencies:
   google_fonts: ^2.1.0
   http: ^0.13.3
   lottie: ^1.1.0
+  page_transition: ^2.0.4
   url_launcher: ^6.0.12
   webview_flutter: ^2.0.13
 

@@ -4,6 +4,7 @@ import 'package:ezhealth_app/screens/doctor_screen/chamber_screen.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 class DoctorScreen extends StatefulWidget {
   final String userId;
@@ -64,25 +65,43 @@ class _DoctorScreenState extends State<DoctorScreen> {
                       ListTile(
                         title: Text("Profile"),
                         leading: Icon(Icons.person),
+                        // onTap: () => Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => DoctorProfile(
+                        //               doctorData['registration_id'].toString(),
+                        //               doctorData['doctor_name'].toString(),
+                        //               doctorData['doctor_description'].toString(),
+                        //               doctorData['degree'].toString(),
+                        //               doctorData['designation'].toString(),
+                        //               doctorData['phone_no'].toString(),
+                        //             ))),
                         onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => DoctorProfile(
-                                      doctorData['registration_id'].toString(),
-                                      doctorData['doctor_name'].toString(),
-                                      doctorData['doctor_description'].toString(),
-                                      doctorData['degree'].toString(),
-                                      doctorData['designation'].toString(),
-                                      doctorData['phone_no'].toString(),
-                                    ))),
+                            PageTransition(
+                                type: PageTransitionType.rightToLeftWithFade,
+                                child: DoctorProfile(
+                                  doctorData['registration_id'].toString(),
+                                  doctorData['doctor_name'].toString(),
+                                  doctorData['doctor_description'].toString(),
+                                  doctorData['degree'].toString(),
+                                  doctorData['designation'].toString(),
+                                  doctorData['phone_no'].toString(),
+                                ))),
                       ),
                       ListTile(
                         title: Text("Clinics"),
                         leading: Icon(Icons.settings),
+                        // onTap: () => Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ChamberScreen(
+                        //             doctorData['registration_id']))),
                         onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => ChamberScreen(
+                            PageTransition(
+                                type: PageTransitionType.rightToLeftWithFade,
+                                child: ChamberScreen(
                                     doctorData['registration_id']))),
                       )
                     ],

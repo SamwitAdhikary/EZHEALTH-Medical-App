@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -53,13 +54,23 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((DataSnapshot snapshot) {
           setState(() {
             if (snapshot.value['role'] == 'Doctor') {
+              // Navigator.pushReplacement(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => DoctorScreen(userId)));
               Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => DoctorScreen(userId)));
+                  PageTransition(
+                      child: DoctorScreen(userId),
+                      type: PageTransitionType.rightToLeftWithFade));
             } else if (snapshot.value['role'] == 'User') {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => UserHome(userId)));
+              // Navigator.pushReplacement(context,
+              //     MaterialPageRoute(builder: (context) => UserHome(userId)));
+              Navigator.pushReplacement(
+                  context,
+                  PageTransition(
+                      child: UserHome(userId),
+                      type: PageTransitionType.rightToLeftWithFade));
             }
           });
         });

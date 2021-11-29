@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GetStartedScreen extends StatelessWidget {
   @override
@@ -35,10 +36,15 @@ class GetStartedScreen extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       print('pressed on login');
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => LoginScreen()));
                       Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                          PageTransition(
+                              child: LoginScreen(),
+                              type: PageTransitionType.rightToLeftWithFade));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -85,10 +91,15 @@ class GetStartedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
                     print('pressed on doctor');
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => DoctorRegistrationScreen()));
                     Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => DoctorRegistrationScreen()));
+                        PageTransition(
+                            type: PageTransitionType.rightToLeftWithFade,
+                            child: DoctorRegistrationScreen()));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.2,
@@ -140,10 +151,15 @@ class GetStartedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
                     print('pressed on patient');
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => UserRegistrationScreen()));
                     Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => UserRegistrationScreen()));
+                        PageTransition(
+                            child: UserRegistrationScreen(),
+                            type: PageTransitionType.rightToLeftWithFade));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.2,

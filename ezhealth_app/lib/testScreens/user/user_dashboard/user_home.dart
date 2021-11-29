@@ -6,12 +6,14 @@ import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/user_screen/corona_stats.dart';
 import 'package:ezhealth_app/screens/user_screen/news.dart';
 import 'package:ezhealth_app/testScreens/user/doctor_section/about_doctor.dart';
+import 'package:ezhealth_app/testScreens/user/doctor_section/all_available_doctors.dart';
 import 'package:ezhealth_app/testScreens/user/user_dashboard/user_appointment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 class UserHome extends StatefulWidget {
   final String userID;
@@ -97,10 +99,15 @@ class _UserHomeState extends State<UserHome> {
                   Icons.calendar_today,
                 ),
                 onTap: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => UserAppointment(userID)));
                   Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => UserAppointment(userID)));
+                      PageTransition(
+                          child: UserAppointment(userID),
+                          type: PageTransitionType.rightToLeftWithFade));
                 },
               )
             ],
@@ -116,14 +123,13 @@ class _UserHomeState extends State<UserHome> {
                   Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Row(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          // color: Colors.red,
+                          child: Row(
                             children: [
                               Container(
                                 padding: EdgeInsets.only(
@@ -173,19 +179,30 @@ class _UserHomeState extends State<UserHome> {
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
+                        ),
+                        // SizedBox(
+                        //   height: 30,
+                        // ),
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          // color: Colors.blue,
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               //! Corona Stats
                               GestureDetector(
                                 onTap: () {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => CoronaStats()));
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CoronaStats()));
+                                      PageTransition(
+                                          child: CoronaStats(),
+                                          type: PageTransitionType
+                                              .rightToLeftWithFade));
                                 },
                                 child: Container(
                                   height: 105,
@@ -221,10 +238,16 @@ class _UserHomeState extends State<UserHome> {
                               //! News
                               GestureDetector(
                                 onTap: () {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => News()));
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) => News()));
+                                      PageTransition(
+                                          child: News(),
+                                          type: PageTransitionType
+                                              .rightToLeftWithFade));
                                 },
                                 child: Container(
                                   height: 105,
@@ -289,10 +312,12 @@ class _UserHomeState extends State<UserHome> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          quotes != null
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          // color: Colors.pink,
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          child: quotes != null
                               ? CarouselSlider.builder(
                                   itemCount: quotes.length,
                                   options: CarouselOptions(
@@ -356,136 +381,184 @@ class _UserHomeState extends State<UserHome> {
                                     child: CircularProgressIndicator(),
                                   ),
                                 ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            // color: Colors.red,
-                            padding: EdgeInsets.only(left: 20),
-                            child: Text(
-                              'Available Doctors',
-                              style: TextStyle(
-                                fontSize: 20,
+                        ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        Container(
+                          margin: EdgeInsets.only(top: 25),
+                          width: MediaQuery.of(context).size.width,
+                          // color: Colors.red,
+                          padding: EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  'Available Doctors',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             AllAvailableDoctors(
+                                  //                 userID, data['user_name'])));
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          child: AllAvailableDoctors(
+                                              userID, data['user_name']),
+                                          type: PageTransitionType
+                                              .rightToLeftWithFade));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(right: 20),
+                                  child: Text(
+                                    'See All >',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                        ),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
 
-                          //! Available Doctors List
-                          doctors != null
-                              ? Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.95,
-                                  child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: doctors.length,
-                                    itemBuilder: (context, index) {
-                                      final doctor = doctors[index];
-                                      return GestureDetector(
-                                        onTap: () {
-                                          print(doctor['doctor_name']);
-                                          // print(doctor['registration_id']);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => AboutDoctor(
-                                                      doctor['registration_id'],
-                                                      userID,
+                        //! Available Doctors List
+                        Container(
+                          margin: EdgeInsets.only(top: 10),
+                          // color: Colors.yellow,
+                          height: MediaQuery.of(context).size.height * 0.34,
+                          child: doctors != null
+                              ? ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: 2,
+                                  itemBuilder: (context, index) {
+                                    final doctor = doctors[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        print(doctor['doctor_name']);
+                                        // print(doctor['registration_id']);
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => AboutDoctor(
+                                        //             doctor['registration_id'],
+                                        //             userID,
+                                        //             doctor['doctor_name'],
+                                        //             data['user_name'],
+                                        //             doctor[
+                                        //                 'doctor_description'],
+                                        //             doctor['degree'],
+                                        //             doctor['designation'],
+                                        //             doctor['mail_id'],
+                                        //             doctor['phone_no'])));
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType
+                                                    .rightToLeftWithFade,
+                                                child: AboutDoctor(
+                                                    doctor['registration_id'],
+                                                    userID,
+                                                    doctor['doctor_name'],
+                                                    data['user_name'],
+                                                    doctor[
+                                                        'doctor_description'],
+                                                    doctor['degree'],
+                                                    doctor['designation'],
+                                                    doctor['mail_id'],
+                                                    doctor['phone_no'])));
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 10),
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 100,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                color: Colors.blue,
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                    'assets/images/doctor.png',
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Dr. ' +
                                                       doctor['doctor_name'],
-                                                      data['user_name'],
-                                                      doctor[
-                                                          'doctor_description'],
-                                                      doctor['degree'],
-                                                      doctor['designation'],
-                                                      doctor['mail_id'],
-                                                      doctor['phone_no'])));
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.only(top: 10),
-                                          height: 120,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: Row(
-                                            children: [
-                                              Hero(
-                                                tag: doctor['registration_id'],
-                                                child: Container(
-                                                  height: 100,
-                                                  width: 80,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.blue,
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                        'assets/images/doctor.png',
-                                                      ),
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Dr. ' +
-                                                        doctor['doctor_name'],
-                                                    style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(doctor['degree']),
-                                                      SizedBox(width: 10),
-                                                      Text(
-                                                          doctor['designation'])
-                                                    ],
-                                                  ),
-                                                  // Row(
-                                                  //   children: [
-                                                  //     Text('Rating:'),
-                                                  //     SizedBox(
-                                                  //       width: 5,
-                                                  //     ),
-                                                  //     Text('4.5⭐'),
-                                                  //   ],
-                                                  // )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                Row(
+                                                  children: [
+                                                    Text(doctor['degree']),
+                                                    SizedBox(width: 10),
+                                                    Text(doctor['designation'])
+                                                  ],
+                                                ),
+                                                // Row(
+                                                //   children: [
+                                                //     Text('Rating:'),
+                                                //     SizedBox(
+                                                //       width: 5,
+                                                //     ),
+                                                //     Text('4.5⭐'),
+                                                //   ],
+                                                // )
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 )
-                              : CircularProgressIndicator(),
-                        ],
-                      ),
+                              : Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.34,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  )),
+                        )
+                      ],
                     ),
                   ),
                   Positioned(
                     left: 5,
-                    top: 40,
+                    top: 30,
                     child: IconButton(
                       icon: Icon(Icons.menu),
                       onPressed: () => _scaffoldState.currentState.openDrawer(),

@@ -4,6 +4,7 @@ import 'package:ezhealth_app/testScreens/user/doctor_section/book_appointment.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,8 +31,17 @@ class AboutDoctor extends StatefulWidget {
   );
 
   @override
-  _AboutDoctorState createState() => _AboutDoctorState(doctorID, userID,
-      doctorname, userName, description, degree, designation, mail, phone,);
+  _AboutDoctorState createState() => _AboutDoctorState(
+        doctorID,
+        userID,
+        doctorname,
+        userName,
+        description,
+        degree,
+        designation,
+        mail,
+        phone,
+      );
 }
 
 class _AboutDoctorState extends State<AboutDoctor>
@@ -45,8 +55,17 @@ class _AboutDoctorState extends State<AboutDoctor>
   final String designation;
   final String mail;
   final int phone;
-  _AboutDoctorState(this.doctorID, this.userID, this.doctorname, this.userName,
-      this.description, this.degree, this.designation, this.mail, this.phone,);
+  _AboutDoctorState(
+    this.doctorID,
+    this.userID,
+    this.doctorname,
+    this.userName,
+    this.description,
+    this.degree,
+    this.designation,
+    this.mail,
+    this.phone,
+  );
 
   Map doctors;
   bool isExpanded = false;
@@ -92,17 +111,14 @@ class _AboutDoctorState extends State<AboutDoctor>
           child: Column(
             children: [
               //! Profile Photo
-              Hero(
-                tag: doctorID,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/doctor.png'),
-                      // fit: BoxFit.fill,
-                    ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.35,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/doctor.png'),
+                    // fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -128,7 +144,7 @@ class _AboutDoctorState extends State<AboutDoctor>
                       child: Column(
                         children: [
                           Text(
-                            'Dr. ' + userName,
+                            'Dr. ' + doctorname,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -221,13 +237,26 @@ class _AboutDoctorState extends State<AboutDoctor>
               //! Book Appointment Button
               GestureDetector(
                 onTap: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BookAppointment(
+                  //       doctorIdNumber['registration_id'],
+                  //       userID,
+                  //       userName,
+                  //       doctorname,
+                  //     ),
+                  //   ),
+                  // );
                   Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => BookAppointment(
-                                doctorIdNumber['registration_id'],
-                                userID, userName, doctorname,
-                              ),),);
+                      PageTransition(
+                          type: PageTransitionType.rightToLeftWithFade,
+                          child: BookAppointment(
+                              doctorIdNumber['registration_id'],
+                              userID,
+                              userName,
+                              doctorname)));
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.08,
