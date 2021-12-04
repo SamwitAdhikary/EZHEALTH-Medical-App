@@ -109,7 +109,7 @@ class _UserHomeState extends State<UserHome> {
                           child: UserAppointment(userID),
                           type: PageTransitionType.rightToLeftWithFade));
                 },
-              )
+              ),
             ],
           ),
         ),

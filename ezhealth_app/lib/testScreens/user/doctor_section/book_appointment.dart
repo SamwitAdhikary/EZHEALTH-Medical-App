@@ -4,6 +4,7 @@ import 'package:ezhealth_app/config/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class BookAppointment extends StatefulWidget {
   final String doctorId;
@@ -25,6 +26,8 @@ class _BookAppointmentState extends State<BookAppointment> {
   _BookAppointmentState(
       this.doctorId, this.userID, this.userName, this.doctorName);
 
+  Razorpay _razorpay;
+
   bool _mondaySelected;
   bool _tuesdaySelected;
   bool _wednesdaySelected;
@@ -32,6 +35,8 @@ class _BookAppointmentState extends State<BookAppointment> {
   bool _fridaySelected;
   bool _saturdaySelected;
   bool _sundaySelected;
+
+  Map user;
 
   Map monday;
   Map tuesday;
@@ -81,6 +86,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   void initState() {
     super.initState();
 
+    _razorpay = new Razorpay();
+
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, successHandler);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, failureHandler);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, externalWalletHandler);
+
     _mondaySelected = false;
     _tuesdaySelected = false;
     _wednesdaySelected = false;
@@ -88,6 +99,8 @@ class _BookAppointmentState extends State<BookAppointment> {
     _fridaySelected = false;
     _saturdaySelected = false;
     _sundaySelected = false;
+
+    getUserDetails();
 
     getMonday();
     getTuesday();
@@ -98,8 +111,53 @@ class _BookAppointmentState extends State<BookAppointment> {
     getSunday();
   }
 
-  bookAppointment() {
-    print('Book Appointment');
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void paymentAndBook() async {
+    var options = {
+      'key': "rzp_test_2yybXjsj1yUQX9",
+      'amount': 100 * 100,
+      'name': userName,
+      'description': "For Booking",
+      'prefill': {
+        'contact': user['phone_no'],
+        'email': user['mail_id'],
+      },
+      'external': ['paytm'],
+    };
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void successHandler(PaymentSuccessResponse response) {
+    print('Success ' + response.toString());
+    appointment();
+  }
+
+  void failureHandler(PaymentFailureResponse response) {
+    print('Failure ' + response.toString());
+  }
+
+  void externalWalletHandler() {
+    print('External Wallet');
+  }
+
+  getUserDetails() async {
+    final String url = 'http://192.168.43.2:8000/api/user/$userID/';
+    var response = await http.get(Uri.parse(url));
+    if (!mounted) return;
+    setState(() {
+      var convertJson = json.decode(response.body);
+      user = convertJson;
+      print(user);
+    });
   }
 
   getMonday() async {
@@ -1094,7 +1152,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                                 _sundaySelected
                             ? () {
                                 print('clicked on book');
-                                appointment();
+                                // appointment();
+                                paymentAndBook();
                               }
                             : null,
                         child: Text('Book'),

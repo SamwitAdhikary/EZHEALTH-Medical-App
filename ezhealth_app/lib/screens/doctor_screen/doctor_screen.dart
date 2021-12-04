@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/chamber_screen.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_profile.dart';
+// import 'package:ezhealth_app/testScreens/get_started.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
@@ -103,7 +105,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                 type: PageTransitionType.rightToLeftWithFade,
                                 child: ChamberScreen(
                                     doctorData['registration_id']))),
-                      )
+                      ),
                     ],
                   ),
                 ),

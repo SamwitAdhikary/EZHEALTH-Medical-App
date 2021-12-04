@@ -1,9 +1,13 @@
 // import 'package:ezhealth_app//login_screen/login_screen.dart';
 // import 'package:ezhealth_app/testScreens/doctorRegisterScreen/doctor_registration_number.dart';
+// import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
 import 'package:ezhealth_app/testScreens/doctorRegisterScreen/doctor_registration_screen.dart';
 import 'package:ezhealth_app/testScreens/loginScreen/login_screen.dart';
 // import 'package:ezhealth_app/testScreens/user/userRegisterScreen/user_name.dart';
 import 'package:ezhealth_app/testScreens/user/userRegisterScreen/user_registration_screen.dart';
+// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_database/firebase_database.dart';
 // import 'package:ezhealth_app/testScreens/userRegisterScreen/user_name.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +15,13 @@ import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
-class GetStartedScreen extends StatelessWidget {
+class GetStartedScreen extends StatefulWidget {
+  @override
+  State<GetStartedScreen> createState() => _GetStartedScreenState();
+}
+
+class _GetStartedScreenState extends State<GetStartedScreen> {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,6 +55,7 @@ class GetStartedScreen extends StatelessWidget {
                           PageTransition(
                               child: LoginScreen(),
                               type: PageTransitionType.rightToLeftWithFade));
+                      // FirebaseAuth.instance.signOut();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

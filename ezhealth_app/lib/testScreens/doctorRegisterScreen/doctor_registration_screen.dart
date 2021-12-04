@@ -300,7 +300,7 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.4,
                   // color: Colors.red,
-                  child: Lottie.asset('assets/animations/doctor2.json'),
+                  child: Lottie.asset('assets/animations/doctor.json'),
                 ),
                 SizedBox(height: 10),
                 Container(
