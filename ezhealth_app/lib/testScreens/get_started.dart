@@ -21,7 +21,6 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,7 +49,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) => LoginScreen()));
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           PageTransition(
                               child: LoginScreen(),

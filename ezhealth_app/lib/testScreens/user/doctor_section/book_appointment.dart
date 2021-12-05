@@ -123,6 +123,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       'amount': 100 * 100,
       'name': userName,
       'description': "For Booking",
+      'timeout': 120,
       'prefill': {
         'contact': user['phone_no'],
         'email': user['mail_id'],
@@ -143,6 +144,7 @@ class _BookAppointmentState extends State<BookAppointment> {
 
   void failureHandler(PaymentFailureResponse response) {
     print('Failure ' + response.toString());
+    appointmentNotBooked();
   }
 
   void externalWalletHandler() {
@@ -291,6 +293,24 @@ class _BookAppointmentState extends State<BookAppointment> {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Something Went Wrong. Try Again!!!')));
     }
+  }
+
+  appointmentNotBooked() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Unsuccessfull'),
+        content: Text("Sorry!!!\nYour appointment could'nt be booked"),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Close'),
+          ),
+        ],
+      ),
+    );
   }
 
   // decreaseSlot() async {

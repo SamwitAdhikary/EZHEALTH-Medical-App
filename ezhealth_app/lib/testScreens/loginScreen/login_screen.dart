@@ -1,18 +1,12 @@
 import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
-// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_dashboard.dart';
 import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
-// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_dashboard.dart';
-// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
-// import 'package:ezhealth_app/testScreens/get_started.dart';
-// import 'package:ezhealth_app/screens/user_screen/bottom_nav_bar.dart';
-// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -58,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //     context,
               //     MaterialPageRoute(
               //         builder: (context) => DoctorScreen(userId)));
+              setDoctorDetails(userId);
               Navigator.pushReplacement(
                   context,
                   PageTransition(
@@ -66,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             } else if (snapshot.value['role'] == 'User') {
               // Navigator.pushReplacement(context,
               //     MaterialPageRoute(builder: (context) => UserHome(userId)));
+              setUserDetails(userId);
               Navigator.pushReplacement(
                   context,
                   PageTransition(
@@ -150,6 +146,18 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  setDoctorDetails(String doctorId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('role', 'Doctor');
+    prefs.setString('doctorId', doctorId);
+  }
+
+  setUserDetails(String userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('role', 'User');
+    prefs.setString('userId', userId);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -230,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ? Icons.visibility_off
                                       : Icons.visibility))),
                           obscureText: !_isPasswordVisible,
-                          obscuringCharacter: "*",
+                          obscuringCharacter: "\u2749",
                           textInputAction: TextInputAction.go,
                           controller: _password,
                           validator: passwordValidate,

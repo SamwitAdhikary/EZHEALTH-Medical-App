@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/chamber_screen.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_profile.dart';
+import 'package:ezhealth_app/testScreens/get_started.dart';
 // import 'package:ezhealth_app/testScreens/get_started.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DoctorScreen extends StatefulWidget {
   final String userId;
@@ -106,6 +108,21 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                 child: ChamberScreen(
                                     doctorData['registration_id']))),
                       ),
+                      ListTile(
+                        title: Text('LogOut'),
+                        leading: Icon(Icons.logout),
+                        onTap: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.remove('role');
+                          prefs.remove('doctorId');
+                          Navigator.pushReplacement(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.leftToRightWithFade,
+                                  child: GetStartedScreen()));
+                        },
+                      )
                     ],
                   ),
                 ),

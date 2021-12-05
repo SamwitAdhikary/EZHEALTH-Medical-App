@@ -203,7 +203,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                       ? Icons.visibility
                                       : Icons.visibility_off))),
                           obscureText: !_visiblePassword,
-                          obscuringCharacter: "*",
+                          obscuringCharacter: "\u2749",
                           textInputAction: TextInputAction.next,
                           controller: _password,
                           validator: passwordValidate,
@@ -235,7 +235,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                       : Icons.visibility_off))),
                           obscureText: !_visibleConfirmPassword,
                           textInputAction: TextInputAction.go,
-                          obscuringCharacter: "*",
+                          obscuringCharacter: "\u2749",
                           controller: _confirmPassword,
                           validator: confirmPasswordValidate,
                           onSaved: (value) {

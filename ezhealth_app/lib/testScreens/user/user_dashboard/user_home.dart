@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/user_screen/corona_stats.dart';
 import 'package:ezhealth_app/screens/user_screen/news.dart';
+import 'package:ezhealth_app/testScreens/get_started.dart';
 import 'package:ezhealth_app/testScreens/user/doctor_section/about_doctor.dart';
 import 'package:ezhealth_app/testScreens/user/doctor_section/all_available_doctors.dart';
 import 'package:ezhealth_app/testScreens/user/user_dashboard/user_appointment.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserHome extends StatefulWidget {
   final String userID;
@@ -110,6 +112,21 @@ class _UserHomeState extends State<UserHome> {
                           type: PageTransitionType.rightToLeftWithFade));
                 },
               ),
+              ListTile(
+                title: Text('LogOut'),
+                leading: Icon(Icons.logout),
+                onTap: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('role');
+                  prefs.remove('userId');
+                  Navigator.pushReplacement(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.leftToRightWithFade,
+                          child: GetStartedScreen()));
+                },
+              ),
             ],
           ),
         ),
@@ -155,7 +172,9 @@ class _UserHomeState extends State<UserHome> {
                                     Container(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        data['user_name'],
+                                        data['user_name'] != null
+                                            ? data['user_name']
+                                            : 'User',
                                         style: TextStyle(
                                           fontSize: 19,
                                         ),
