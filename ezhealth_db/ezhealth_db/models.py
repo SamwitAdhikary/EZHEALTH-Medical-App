@@ -5,6 +5,7 @@ class Doctor(models.Model):
     registration_id = models.CharField(max_length=30, primary_key=True, default='')
     doctor_registration_number = models.CharField(max_length=30, default='')
     doctor_name = models.CharField(max_length=50, default='')
+    doctor_gender = models.CharField(max_length=10, default='')
     doctor_description = models.TextField(default='')
     degree = models.CharField(max_length=30, default='')
     designation = models.CharField(max_length=30, default='')

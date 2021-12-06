@@ -1,11 +1,7 @@
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
-// import 'package:ezhealth_app/loginLogic.dart';
 import 'package:ezhealth_app/testScreens/get_started.dart';
 import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
-// import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
-// import 'package:ezhealth_app/testScreens/get_started.dart';
-// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,28 +14,7 @@ Future<void> main() async {
   var role = prefs.getString('role');
   var userId = prefs.getString('userId');
   var doctorId = prefs.getString('doctorId');
-  print(role);
-  print(userId);
-  print(doctorId);
-  // runApp(MyApp());
-  // runApp(
-  //   MaterialApp(
-  //     title: 'Flutter Demo',
-  //     theme: ThemeData(
-  //         primarySwatch: Colors.blue,
-  //         scaffoldBackgroundColor: Palette.scaffoldColor,
-  //         fontFamily: GoogleFonts.poppins().fontFamily),
-  //     home: Builder(builder: (context) {
-  //       if (role == 'Doctor') {
-  //         return DoctorScreen(doctorId);
-  //       } else if (role == 'User') {
-  //         return UserHome(userId);
-  //       }
-  //       return GetStartedScreen();
-  //     }),
-  //     debugShowCheckedModeBanner: false,
-  //   ),
-  // );
+
   runApp(
     MaterialApp(
       title: "EZHEALTH",
@@ -48,6 +23,7 @@ Future<void> main() async {
         scaffoldBackgroundColor: Palette.scaffoldColor,
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
+      debugShowCheckedModeBanner: false,
       home: Builder(builder: (context) {
         if (role == 'Doctor') {
           return DoctorScreen(doctorId);
@@ -60,20 +36,4 @@ Future<void> main() async {
       }),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Palette.scaffoldColor,
-        fontFamily: GoogleFonts.poppins().fontFamily,
-      ),
-      home: GetStartedScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
 }

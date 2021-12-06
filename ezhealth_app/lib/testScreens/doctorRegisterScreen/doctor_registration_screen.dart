@@ -34,6 +34,7 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   String phoneText;
   String passwordText;
   String confirmPasswordText;
+  String _chosenValue;
 
   final _auth = FirebaseAuth.instance;
 
@@ -358,6 +359,37 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
                           validator: nameValidate,
                           onSaved: (value) {
                             nameText = value;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        //! Gender
+                        DropdownButtonFormField(
+                          decoration: InputDecoration(
+                            label: Text("Choose Slots Available*"),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          validator: (value) =>
+                              value == null ? 'Field must not be empty' : null,
+                          isExpanded: true,
+                          value: _chosenValue,
+                          items: [
+                            'Male',
+                            'Female',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String value) {
+                            setState(() {
+                              _chosenValue = value;
+                            });
                           },
                         ),
                         SizedBox(

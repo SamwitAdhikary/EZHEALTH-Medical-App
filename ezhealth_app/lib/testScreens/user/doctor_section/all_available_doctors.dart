@@ -90,6 +90,7 @@ class _AllAvailableDoctorsState extends State<AllAvailableDoctors> {
                                     doctor['registration_id'],
                                     userId,
                                     doctor['doctor_name'],
+                                    doctor['doctor_gender'],
                                     userName,
                                     doctor['doctor_description'],
                                     doctor['degree'],
@@ -113,9 +114,13 @@ class _AllAvailableDoctorsState extends State<AllAvailableDoctors> {
                               decoration: BoxDecoration(
                                 color: Colors.blue,
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/doctor.png',
-                                  ),
+                                  image: doctor['doctor_gender'] == 'Female'
+                                      ? AssetImage(
+                                          'assets/images/doctor.png',
+                                        )
+                                      : AssetImage(
+                                          'assets/images/doctor-male.png',
+                                        ),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(10),

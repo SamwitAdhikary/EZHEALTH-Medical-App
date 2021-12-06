@@ -12,6 +12,7 @@ class AboutDoctor extends StatefulWidget {
   final String doctorID;
   final String userID;
   final String doctorname;
+  final String doctorGender;
   final String userName;
   final String description;
   final String degree;
@@ -22,6 +23,7 @@ class AboutDoctor extends StatefulWidget {
     this.doctorID,
     this.userID,
     this.doctorname,
+    this.doctorGender,
     this.userName,
     this.description,
     this.degree,
@@ -35,6 +37,7 @@ class AboutDoctor extends StatefulWidget {
         doctorID,
         userID,
         doctorname,
+        doctorGender,
         userName,
         description,
         degree,
@@ -49,6 +52,7 @@ class _AboutDoctorState extends State<AboutDoctor>
   final String doctorID;
   final String userID;
   final String doctorname;
+  final String doctorGender;
   final String userName;
   final String description;
   final String degree;
@@ -59,6 +63,7 @@ class _AboutDoctorState extends State<AboutDoctor>
     this.doctorID,
     this.userID,
     this.doctorname,
+    this.doctorGender,
     this.userName,
     this.description,
     this.degree,
@@ -117,8 +122,9 @@ class _AboutDoctorState extends State<AboutDoctor>
                 decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                    image: AssetImage('assets/images/doctor.png'),
-                    // fit: BoxFit.fill,
+                    image: doctorGender == 'Female'
+                        ? AssetImage('assets/images/doctor.png')
+                        : AssetImage('assets/images/doctor-male.png'),
                   ),
                 ),
               ),
