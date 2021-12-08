@@ -77,6 +77,14 @@ class _BookAppointmentState extends State<BookAppointment> {
   String saturdayNumber;
   String sundayNumber;
 
+  int mondaySlotInt;
+  int tuesdaySlotInt;
+  int wednesdaySlotInt;
+  int thursdaySlotInt;
+  int fridaySlotInt;
+  int saturdaySlotInt;
+  int sundaySlotInt;
+
   String day;
   String time;
   String place;
@@ -122,7 +130,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       'amount': 100 * 100,
       'name': userName,
       'description': "For Booking",
-      'timeout': 120,
+      'timeout': 240,
       'prefill': {
         'contact': user['phone_no'],
         'email': user['mail_id'],
@@ -172,8 +180,9 @@ class _BookAppointmentState extends State<BookAppointment> {
       mondayChamber = monday['chamber_location'];
       mondayTime = monday['available_time'];
       mondaySlot = monday['slots_available'].toString();
+      mondaySlotInt = monday['slots_available'];
     });
-    print(monday['chamber_location']);
+    // print(mondaySlotInt);
   }
 
   getTuesday() async {
@@ -187,6 +196,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       tuesdayChamber = tuesday['chamber_location'];
       tuesdayTime = tuesday['available_time'];
       tuesdaySlot = tuesday['slots_available'].toString();
+      tuesdaySlotInt = tuesday['slots_available'];
     });
   }
 
@@ -201,6 +211,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       wednesdayChamber = wednesday['chamber_location'];
       wednesdayTime = wednesday['available_time'];
       wednesdaySlot = wednesday['slots_available'].toString();
+      wednesdaySlotInt = wednesday['slots_available'];
     });
   }
 
@@ -215,6 +226,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       thursdayChamber = thursday['chamber_location'];
       thursdayTime = thursday['available_time'];
       thursdaySlot = thursday['slots_available'].toString();
+      thursdaySlotInt = thursday['slots_available'];
     });
   }
 
@@ -229,6 +241,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       fridayChamber = friday['chamber_location'];
       fridayTime = friday['available_time'];
       fridaySlot = friday['slots_available'].toString();
+      fridaySlotInt = friday['slots_available'];
     });
   }
 
@@ -243,6 +256,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       saturdayChamber = saturday['chamber_location'];
       saturdayTime = saturday['available_time'];
       saturdaySlot = saturday['slots_available'].toString();
+      saturdaySlotInt = saturday['slots_available'];
     });
   }
 
@@ -257,7 +271,113 @@ class _BookAppointmentState extends State<BookAppointment> {
       sundayChamber = sunday['chamber_location'];
       sundayTime = sunday['available_time'];
       sundaySlot = sunday['slots_available'].toString();
+      sundaySlotInt = sunday['slots_available'];
     });
+  }
+
+  decreaseMondaySlot(int mondaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': mondaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
+  }
+
+  decreaseTuesdaySlot(int tuesdaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/tuesday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': tuesdaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
+  }
+
+  decreaseWednesdaySlot(int wednesdaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': wednesdaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
+  }
+
+  decreaseThursdaySlot(int thursdaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/thursday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': thursdaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
+  }
+
+  decreaseFridaySlot(int fridaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/friday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': fridaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
+  }
+
+  decreaseSaturdaySlot(int saturdaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/saturday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': saturdaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
+  }
+
+  decreaseSundaySlot(int sundaySlotValue) async {
+    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
+    var response = await http.put(
+      Uri.parse(url),
+      body: {
+        'slots_available': sundaySlotValue.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('something error');
+    }
   }
 
   appointment() async {
@@ -281,6 +401,29 @@ class _BookAppointmentState extends State<BookAppointment> {
           actions: [
             ElevatedButton(
               onPressed: () {
+                if (day == 'Monday') {
+                  mondaySlotInt = mondaySlotInt - 1;
+                  decreaseMondaySlot(mondaySlotInt);
+                } else if (day == 'Tuesday') {
+                  tuesdaySlotInt = tuesdaySlotInt - 1;
+                  decreaseTuesdaySlot(tuesdaySlotInt);
+                } else if (day == 'Wednesday') {
+                  wednesdaySlotInt = wednesdaySlotInt - 1;
+                  decreaseWednesdaySlot(wednesdaySlotInt);
+                } else if (day == 'Thursday') {
+                  thursdaySlotInt = thursdaySlotInt - 1;
+                  decreaseThursdaySlot(thursdaySlotInt);
+                } else if (day == 'Friday') {
+                  fridaySlotInt = fridaySlotInt - 1;
+                  decreaseFridaySlot(fridaySlotInt);
+                } else if (day == 'Saturday') {
+                  saturdaySlotInt = saturdaySlotInt - 1;
+                  decreaseSaturdaySlot(saturdaySlotInt);
+                } else if (day == 'Sunday') {
+                  sundaySlotInt = sundaySlotInt - 1;
+                  decreaseSundaySlot(sundaySlotInt);
+                }
+
                 Navigator.pop(context);
               },
               child: Text('Close'),
@@ -312,12 +455,43 @@ class _BookAppointmentState extends State<BookAppointment> {
     );
   }
 
-  // decreaseSlot() async {
-  //   final String url = ''
-  // }
+  confirmToPay() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Proceed'),
+        content: Text('Proceed to pay booking charges.'),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.red),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              paymentAndBook();
+              Navigator.pop(context);
+            },
+            child: Text('Proceed'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    getMonday();
+    getTuesday();
+    getWednesday();
+    getThursday();
+    getFriday();
+    getSaturday();
+    getSunday();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -332,13 +506,13 @@ class _BookAppointmentState extends State<BookAppointment> {
           centerTitle: true,
           elevation: 0,
         ),
-        body: mondayChamber != "" ||
-                tuesdayChamber != "" ||
-                wednesdayChamber != "" ||
-                thursdayChamber != "" ||
-                fridayChamber != "" ||
-                saturdayChamber != "" ||
-                sundayChamber != ""
+        body: mondayChamber != "" && mondaySlotInt != 0 ||
+                tuesdayChamber != "" && tuesdaySlotInt != 0 ||
+                wednesdayChamber != "" && wednesdaySlotInt != 0 ||
+                thursdayChamber != "" && thursdaySlotInt != 0 ||
+                fridayChamber != "" && fridaySlotInt != 0 ||
+                saturdayChamber != "" && saturdaySlotInt != 0 ||
+                sundayChamber != "" && sundaySlotInt != 0
             ? Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -356,7 +530,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                             Column(
                               children: [
                                 //!Monday
-                                mondayChamber != ""
+                                mondayChamber != "" && mondaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -469,7 +643,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     : Offstage(),
 
                                 //! Tuesday
-                                tuesdayChamber != ""
+                                tuesdayChamber != "" && tuesdaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -583,7 +757,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     : Offstage(),
 
                                 //! Wednesday
-                                wednesdayChamber != ""
+                                wednesdayChamber != "" && wednesdaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -697,7 +871,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     : Offstage(),
 
                                 //! Thursday
-                                thursdayChamber != ""
+                                thursdayChamber != "" && thursdaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -811,7 +985,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     : Offstage(),
 
                                 //! Friday
-                                fridayChamber != ""
+                                fridayChamber != "" && fridaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -924,7 +1098,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     : Offstage(),
 
                                 //! Saturday
-                                saturdayChamber != ""
+                                saturdayChamber != "" && saturdaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -1038,7 +1212,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     : Offstage(),
 
                                 //! Sunday
-                                sundayChamber != ""
+                                sundayChamber != "" && sundaySlotInt != 0
                                     ? Column(
                                         children: [
                                           SizedBox(
@@ -1172,7 +1346,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                             ? () {
                                 print('clicked on book');
                                 // appointment();
-                                paymentAndBook();
+                                confirmToPay();
                               }
                             : null,
                         child: Text('Book'),

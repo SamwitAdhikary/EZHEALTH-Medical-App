@@ -1,14 +1,7 @@
-// import 'package:ezhealth_app//login_screen/login_screen.dart';
-// import 'package:ezhealth_app/testScreens/doctorRegisterScreen/doctor_registration_number.dart';
-// import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
+
 import 'package:ezhealth_app/testScreens/doctorRegisterScreen/doctor_registration_screen.dart';
 import 'package:ezhealth_app/testScreens/loginScreen/login_screen.dart';
-// import 'package:ezhealth_app/testScreens/user/userRegisterScreen/user_name.dart';
 import 'package:ezhealth_app/testScreens/user/userRegisterScreen/user_registration_screen.dart';
-// import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:ezhealth_app/testScreens/userRegisterScreen/user_name.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -112,6 +105,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             child: DoctorRegistrationScreen()));
                   },
                   child: Container(
+                    
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(

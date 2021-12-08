@@ -77,8 +77,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendDoctor(String userID) async {
-    final String url = 'http://192.168.43.2:8000/api/doctor/';
-    // final String url = 'http://142.93.212.221/api/doctor';
+    // final String url = 'http://192.168.43.2:8000/api/doctor/';
+    final String url = 'http://192.168.43.2:8000/api/doctor';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
@@ -98,8 +98,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendMondayData(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/monday/';
     final String url = 'http://192.168.43.2:8000/api/monday/';
-    // final String url = 'http://142.93.212.221/api/monday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "monday_id": userID,
@@ -120,8 +120,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendTuesdayData(String userID) async {
-    final String url = 'http://192.168.43.2:8000/api/tuesday/';
-    // final String url = 'http://142.93.212.221/api/tuesday';
+    // final String url = 'http://192.168.43.2:8000/api/tuesday/';
+    final String url = 'http://192.168.43.2:8000/api/tuesday';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "tuesday_id": userID,
@@ -142,8 +142,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendWednesdayData(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/wednesday/';
     final String url = 'http://192.168.43.2:8000/api/wednesday/';
-    // final String url = 'http://142.93.212.221/api/wednesday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "wednesday_id": userID,
@@ -164,8 +164,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendThursdayData(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/thursday/';
     final String url = 'http://192.168.43.2:8000/api/thursday/';
-    // final String url = 'http://142.93.212.221/api/thursday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "thursday_id": userID,
@@ -186,8 +186,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendFridayData(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/friday/';
     final String url = 'http://192.168.43.2:8000/api/friday/';
-    // final String url = 'http://142.93.212.221/api/friday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "friday_id": userID,
@@ -208,8 +208,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendSaturdayData(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/saturday/';
     final String url = 'http://192.168.43.2:8000/api/saturday/';
-    // final String url = 'http://142.93.212.221/api/saturday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "saturday_id": userID,
@@ -230,8 +230,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendSundayData(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/sunday/';
     final String url = 'http://192.168.43.2:8000/api/sunday/';
-    // final String url = 'http://142.93.212.221/api/sunday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "sunday_id": userID,
@@ -252,8 +252,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendChamberData(userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/chamber/';
     final String url = 'http://192.168.43.2:8000/api/chamber/';
-    // final String url = 'http://142.93.212.221/api/chamber/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "chamber_id": userID,
@@ -368,7 +368,7 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
                         //! Gender
                         DropdownButtonFormField(
                           decoration: InputDecoration(
-                            label: Text("Choose Slots Available*"),
+                            label: Text("Choose Gender*"),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),

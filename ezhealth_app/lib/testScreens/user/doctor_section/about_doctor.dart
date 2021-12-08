@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:ezhealth_app/testScreens/user/doctor_section/book_appointment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -85,9 +84,7 @@ class _AboutDoctorState extends State<AboutDoctor>
 
   getDoctorId() async {
     final String url = 'http://192.168.43.2:8000/api/doctor/$doctorID/';
-    // final String url = 'http://142.93.212.221/api/doctor/$doctorID/';
     var response = await http.get(Uri.parse(url));
-    // print(response.body);
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -123,8 +120,12 @@ class _AboutDoctorState extends State<AboutDoctor>
                   color: Colors.white,
                   image: DecorationImage(
                     image: doctorGender == 'Female'
-                        ? AssetImage('assets/images/doctor.png')
-                        : AssetImage('assets/images/doctor-male.png'),
+                        ? AssetImage(
+                            'assets/images/doctor.png',
+                          )
+                        : AssetImage(
+                            'assets/images/doctor-male.png',
+                          ),
                   ),
                 ),
               ),
@@ -144,9 +145,7 @@ class _AboutDoctorState extends State<AboutDoctor>
                   Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     height: MediaQuery.of(context).size.height * 0.1,
-                    // color: Colors.blue,
                     child: Container(
-                      // color: Colors.red,
                       child: Column(
                         children: [
                           Text(
@@ -168,14 +167,12 @@ class _AboutDoctorState extends State<AboutDoctor>
                   //! Call Button
                   Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    // color: Colors.red,
                     child: GestureDetector(
                       onTap: () {
                         _makePhoneCall();
                       },
                       child: Container(
                         height: 55,
-                        // width: 50,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
@@ -224,7 +221,6 @@ class _AboutDoctorState extends State<AboutDoctor>
                     )
                   : Container(
                       height: MediaQuery.of(context).size.height * 0.26,
-                      // color: Colors.red,
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: Center(
                         child: Text(
@@ -243,17 +239,6 @@ class _AboutDoctorState extends State<AboutDoctor>
               //! Book Appointment Button
               GestureDetector(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BookAppointment(
-                  //       doctorIdNumber['registration_id'],
-                  //       userID,
-                  //       userName,
-                  //       doctorname,
-                  //     ),
-                  //   ),
-                  // );
                   Navigator.push(
                       context,
                       PageTransition(

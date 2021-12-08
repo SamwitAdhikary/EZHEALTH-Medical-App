@@ -3,8 +3,6 @@ import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/chamber_screen.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_profile.dart';
 import 'package:ezhealth_app/testScreens/get_started.dart';
-// import 'package:ezhealth_app/testScreens/get_started.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
@@ -32,8 +30,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
   }
 
   void getDoctor() async {
+    // final String url = 'http://192.168.43.2:8000/api/doctor/$userId/';
     final String url = 'http://192.168.43.2:8000/api/doctor/$userId/';
-    // final String url = 'http://142.93.212.221/api/doctor/$userId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {

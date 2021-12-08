@@ -54,8 +54,8 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   }
 
   sendUser(String userID) async {
+    // final String url = 'http://192.168.43.2:8000/api/user/';
     final String url = 'http://192.168.43.2:8000/api/user/';
-    // final String url = 'http://142.93.212.221/api/uese/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
