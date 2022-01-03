@@ -27,7 +27,7 @@ class _UserAppointmentState extends State<UserAppointment> {
   }
 
   getUserAppointment() async {
-    final String url = 'http://192.168.43.2:8000/api/appointmentuser/$userId/';
+    final String url = 'http://192.168.0.101:8000/api/appointmentuser/$userId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {

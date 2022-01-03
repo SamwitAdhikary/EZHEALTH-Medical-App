@@ -1,4 +1,3 @@
-from typing import ChainMap
 from ezhealth_db.viewsets import AppointmentDoctorViewSet, AppointmentUserViewSet, AppointmentViewSet, ChamberDoctorViewSet, ChamberViewSet, DoctorViewSet, FridayDoctorViewSet, FridayViewSet, MondayDoctorViewSet, MondayViewSet, SaturdayDoctorViewSet, SaturdayViewSet, ThursdayDoctorViewSet, ThursdayViewSet, TuesdayDoctorViewSet, TuesdayViewSet, UserViewSet, SundayViewSet, SundayDoctorViewSet, WednesdayDoctorViewSet, WednesdayViewSet
 from rest_framework import routers
 from django.urls import path, include

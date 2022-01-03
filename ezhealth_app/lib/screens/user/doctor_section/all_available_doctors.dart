@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import 'package:ezhealth_app/config/palette.dart';
-import 'package:ezhealth_app/testScreens/user/doctor_section/about_doctor.dart';
+import 'package:ezhealth_app/screens/user/doctor_section/about_doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
@@ -22,23 +21,38 @@ class _AllAvailableDoctorsState extends State<AllAvailableDoctors> {
   _AllAvailableDoctorsState(this.userId, this.userName);
 
   List doctors;
+  Map data;
 
   @override
   void initState() {
     super.initState();
     getDoctorDetails();
+    getUserDetails();
     print(userId);
     print(userName);
   }
 
   getDoctorDetails() async {
-    final String url = 'http://192.168.43.2:8000/api/chamberdoctor/';
+    final String url = 'http://192.168.0.101:8000/api/chamberdoctor/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
       doctors = convertJson;
       // print(doctors);
+    });
+  }
+
+  getUserDetails() async {
+    final String url = 'http://192.168.0.101:8000/api/user/$userId/';
+    // final String url =
+    //     'http://192.168.0.101:8000/api/user/I5pEXaj4EcM6PHj6xpbFRjOVo4u1/';
+    // final String url = 'http://142.93.212.221/api/user/$userID/';
+    var response = await http.get(Uri.parse(url));
+    if (!mounted) return;
+    setState(() {
+      var convertJson = json.decode(response.body);
+      data = convertJson;
     });
   }
 
@@ -87,16 +101,18 @@ class _AllAvailableDoctorsState extends State<AllAvailableDoctors> {
                             PageTransition(
                                 type: PageTransitionType.rightToLeftWithFade,
                                 child: AboutDoctor(
-                                    doctor['registration_id'],
-                                    userId,
-                                    doctor['doctor_name'],
-                                    doctor['doctor_gender'],
-                                    userName,
-                                    doctor['doctor_description'],
-                                    doctor['degree'],
-                                    doctor['designation'],
-                                    doctor['mail_id'],
-                                    doctor['phone_no'])));
+                                  doctor['registration_id'],
+                                  userId,
+                                  doctor['doctor_name'],
+                                  doctor['doctor_gender'],
+                                  userName,
+                                  doctor['doctor_description'],
+                                  doctor['degree'],
+                                  doctor['designation'],
+                                  doctor['mail_id'],
+                                  doctor['phone_no'],
+                                  data['phone_no'],
+                                )));
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 10),

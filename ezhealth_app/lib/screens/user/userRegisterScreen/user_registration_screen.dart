@@ -1,4 +1,4 @@
-import 'package:ezhealth_app/testScreens/loginScreen/login_screen.dart';
+import 'package:ezhealth_app/screens/loginScreen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,8 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
 
   bool _visiblePassword;
   bool _visibleConfirmPassword;
+
+  bool isLogin = false;
 
   final _name = TextEditingController();
   final _email = TextEditingController();
@@ -38,6 +40,9 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
 
   void _saveItem() async {
     try {
+      setState(() {
+        isLogin = true;
+      });
       final newUser = await _auth.createUserWithEmailAndPassword(
           email: emailText, password: passwordText);
       if (newUser != null) {
@@ -47,15 +52,86 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
         _addUser(userID);
 
         sendUser(userID);
+
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+                child: LoginScreen(), type: PageTransitionType.rightToLeft));
       }
     } catch (e) {
+      setState(() {
+        isLogin = false;
+      });
       print(e);
+
+      String errorText = getMessageFromErrorCode(e);
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Error'),
+          content: Text(errorText),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Close'),
+            )
+          ],
+        ),
+      );
+    }
+  }
+
+  String getMessageFromErrorCode(error) {
+    switch (error.code) {
+      case "ERROR_EMAIL_ALREADY_IN_USE":
+      case "account-exists-with-different-credential":
+      case "email-already-in-use":
+        isLogin = false;
+        return "Email already used. Go to login page.";
+        break;
+      case "ERROR_WRONG_PASSWORD":
+      case "wrong-password":
+        isLogin = false;
+        return "Wrong email/password combination.";
+        break;
+      case "ERROR_USER_NOT_FOUND":
+      case "user-not-found":
+        isLogin = false;
+        return "No user found with this email.";
+        break;
+      case "ERROR_USER_DISABLED":
+      case "user-disabled":
+        isLogin = false;
+        return "User disabled.";
+        break;
+      case "ERROR_TOO_MANY_REQUESTS":
+      case "operation-not-allowed":
+        isLogin = false;
+        return "Too many requests to log into this account.";
+        break;
+      case "ERROR_OPERATION_NOT_ALLOWED":
+      case "operation-not-allowed":
+        isLogin = false;
+        return "Server error, please try again later.";
+        break;
+      case "ERROR_INVALID_EMAIL":
+      case "invalid-email":
+        isLogin = false;
+        return "Email address is invalid.";
+        break;
+      default:
+        isLogin = false;
+        return "Login failed. Please try again.";
+        break;
     }
   }
 
   sendUser(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/user/';
-    final String url = 'http://192.168.43.2:8000/api/user/';
+    // final String url = 'http://192.168.0.101:8000/api/user/';
+    final String url = 'http://192.168.0.101:8000/api/user/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
@@ -249,33 +325,38 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      print(role);
-                      print(nameText);
-                      print(emailText);
-                      print(phoneText);
-                      print(passwordText);
-                      print(confirmPasswordText);
+                isLogin == false
+                    ? ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            print(role);
+                            print(nameText);
+                            print(emailText);
+                            print(phoneText);
+                            print(passwordText);
+                            print(confirmPasswordText);
 
-                      _saveItem();
+                            _saveItem();
 
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => LoginScreen()));
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => LoginScreen()));
 
-                      Navigator.pushReplacement(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeftWithFade,
-                              child: LoginScreen()));
-                    }
-                  },
-                  child: Text('Register'),
-                ),
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     PageTransition(
+                            //         type: PageTransitionType.rightToLeftWithFade,
+                            //         child: LoginScreen()));
+                            FocusScope.of(context).unfocus();
+                          }
+                        },
+                        child: Text('Register'),
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      ),
                 SizedBox(
                   height: 30,
                 ),

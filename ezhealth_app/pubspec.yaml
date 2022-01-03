@@ -16,6 +16,7 @@ dependencies:
   firebase_database: ^8.0.0
   flutter:
     sdk: flutter
+  flutter_onboarding_slider: ^1.0.7
   font_awesome_flutter: ^9.1.0
   google_fonts: ^2.1.0
   http: ^0.13.3

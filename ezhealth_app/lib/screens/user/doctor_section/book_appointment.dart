@@ -159,8 +159,11 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getUserDetails() async {
-    final String url = 'http://192.168.43.2:8000/api/user/$userID/';
-    var response = await http.get(Uri.parse(url));
+    final String url = 'http://192.168.0.101:8000/api/user/$userID/';
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -170,9 +173,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getMonday() async {
-    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/monday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/monday/$doctorId/';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -186,9 +192,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getTuesday() async {
-    final String url = 'http://192.168.43.2:8000/api/tuesday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/tuesday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/tuesday/$doctorId/';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -201,9 +210,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getWednesday() async {
-    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/wednesday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/wednesday/$doctorId/';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -216,9 +228,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getThursday() async {
-    final String url = 'http://192.168.43.2:8000/api/thursday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/thursday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/thursday/$doctorId/';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -231,9 +246,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getFriday() async {
-    final String url = 'http://192.168.43.2:8000/api/friday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/friday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/friday/$doctorId/';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -246,9 +264,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getSaturday() async {
-    final String url = 'http://192.168.43.2:8000/api/saturday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/saturday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/saturday/$doctorId';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -261,9 +282,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   getSunday() async {
-    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/sunday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/sunday/$doctorId/';
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
+    });
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
@@ -276,7 +300,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseMondaySlot(int mondaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/monday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -291,7 +315,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseTuesdaySlot(int tuesdaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/tuesday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/tuesday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -306,7 +330,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseWednesdaySlot(int wednesdaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/wednesday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -321,7 +345,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseThursdaySlot(int thursdaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/thursday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/thursday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -336,7 +360,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseFridaySlot(int fridaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/friday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/friday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -351,7 +375,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseSaturdaySlot(int saturdaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/saturday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/saturday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -366,7 +390,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   decreaseSundaySlot(int sundaySlotValue) async {
-    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/sunday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -381,7 +405,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   }
 
   appointment() async {
-    final String url = 'http://192.168.43.2:8000/api/appointment/';
+    final String url = 'http://192.168.0.101:8000/api/appointment/';
     var response = await http.post(Uri.parse(url), body: {
       "username": userName,
       "doctorname": doctorName,
@@ -431,6 +455,7 @@ class _BookAppointmentState extends State<BookAppointment> {
           ],
         ),
       );
+      sendEmail(user['user_name'], user['mail_id']);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Something Went Wrong. Try Again!!!')));
@@ -460,7 +485,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       context: context,
       builder: (_) => AlertDialog(
         title: Text('Proceed'),
-        content: Text('Proceed to pay booking charges.'),
+        content: Text('Proceed to pay booking charges?'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -481,6 +506,33 @@ class _BookAppointmentState extends State<BookAppointment> {
         ],
       ),
     );
+  }
+
+  Future sendEmail(
+    String name,
+    String email,
+  ) async {
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'Origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': 'service_jjmjdia',
+        'template_id': 'template_9j1fy3o',
+        'user_id': 'user_YQoD12wpqwjKO43t1n2Me',
+        'template_params': {
+          'user_name': name,
+          'user_email': email,
+          'user_subject': 'Appointment Booked',
+          'user_message':
+              'You have successfully booked the appointment at $time on $day at $place under doctor $doctorName',
+        }
+      }),
+    );
+    print(response.body);
   }
 
   @override

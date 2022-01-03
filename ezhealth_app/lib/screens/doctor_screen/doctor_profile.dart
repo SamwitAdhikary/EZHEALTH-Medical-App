@@ -48,8 +48,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
   final _phone = TextEditingController();
 
   void updateItem() async {
-    // final String url = 'http://192.168.43.2:8000/api/doctor/$doctorId';
-    final String url = 'http://192.168.43.2:8000/api/doctor/$doctorId/';
+    // final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId';
+    final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -61,8 +61,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
 
   void saveItem() async {
     isSave = true;
-    // final String url = 'http://192.168.43.2:8000/api/doctor/$doctorId/';
-    final String url = 'http://192.168.43.2:8000/api/doctor/$doctorId/';
+    // final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId/';
     try {
       var response = await http.put(Uri.parse(url), body: {
         "doctor_name": nameText,

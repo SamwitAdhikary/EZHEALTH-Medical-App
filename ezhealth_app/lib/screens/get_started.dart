@@ -1,12 +1,13 @@
-
-import 'package:ezhealth_app/testScreens/doctorRegisterScreen/doctor_registration_screen.dart';
-import 'package:ezhealth_app/testScreens/loginScreen/login_screen.dart';
-import 'package:ezhealth_app/testScreens/user/userRegisterScreen/user_registration_screen.dart';
+import 'package:ezhealth_app/screens/doctorRegisterScreen/doctor_registration_screen.dart';
+import 'package:ezhealth_app/screens/user/userRegisterScreen/user_registration_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'loginScreen/login_screen.dart';
+// import 'package:telephony/telephony.dart';
 
 class GetStartedScreen extends StatefulWidget {
   @override
@@ -14,6 +15,31 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
+  // Telephony telephony = Telephony.instance;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initPlatformState();
+  // }
+
+  // Future<void> initPlatformState() async {
+  //   final bool grantedPermission =
+  //       await telephony.requestPhoneAndSmsPermissions;
+
+  //   final bool canSendSms = await telephony.isSmsCapable;
+
+  //   SimState simState = await telephony.simState;
+
+  //   if (grantedPermission != null && grantedPermission) {
+  //     print(grantedPermission);
+  //   } else {
+  //     print('error');
+  //   }
+
+  //   print(simState);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +68,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) => LoginScreen()));
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context,
                           PageTransition(
                               child: LoginScreen(),
@@ -105,7 +131,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             child: DoctorRegistrationScreen()));
                   },
                   child: Container(
-                    
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(

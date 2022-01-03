@@ -124,7 +124,4 @@ class Appointment(models.Model):
     place = models.CharField(max_length=20, default='')
     day = models.CharField(max_length=10, default='')
     time = models.CharField(max_length=10, default='')
-
-    def __str__(self):
-        return self.doctor + self.user
     

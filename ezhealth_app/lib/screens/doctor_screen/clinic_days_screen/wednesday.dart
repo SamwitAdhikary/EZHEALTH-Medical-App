@@ -44,7 +44,7 @@ class _WednesdayScreenState extends State<WednesdayScreen> {
   }
 
   void sendData() async {
-    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/wednesday/$doctorId/';
     var response = await http.put(Uri.parse(url), body: {
       "wednesday_id": doctorId,
       "chamber_location": clinicText,
@@ -70,7 +70,7 @@ class _WednesdayScreenState extends State<WednesdayScreen> {
   }
 
   getData() async {
-    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
+    final String url = 'http://192.168.0.101:8000/api/wednesday/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {

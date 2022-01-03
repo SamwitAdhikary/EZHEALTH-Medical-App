@@ -1,5 +1,5 @@
 import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
-import 'package:ezhealth_app/testScreens/user/user_dashboard/user_home.dart';
+import 'package:ezhealth_app/screens/user/user_dashboard/user_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,10 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
               //         builder: (context) => DoctorScreen(userId)));
               setDoctorDetails(userId);
               Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                      child: DoctorScreen(userId),
-                      type: PageTransitionType.rightToLeftWithFade));
+                context,
+                PageTransition(
+                    child: DoctorScreen(userId),
+                    type: PageTransitionType.rightToLeftWithFade),
+              );
             } else if (snapshot.value['role'] == 'User') {
               // Navigator.pushReplacement(context,
               //     MaterialPageRoute(builder: (context) => UserHome(userId)));

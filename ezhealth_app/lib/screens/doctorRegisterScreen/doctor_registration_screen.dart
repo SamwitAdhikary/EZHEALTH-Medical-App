@@ -1,4 +1,4 @@
-import 'package:ezhealth_app/testScreens/loginScreen/login_screen.dart';
+import 'package:ezhealth_app/screens/loginScreen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +18,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
 
   bool _visiblePassword;
   bool _visibleConfirmPassword;
+
+  bool isLogin = false;
 
   final _registrationNumber = TextEditingController();
   final _name = TextEditingController();
@@ -43,6 +45,9 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
 
   void _saveItem() async {
     try {
+      setState(() {
+        isLogin = true;
+      });
       final newUser = await _auth.createUserWithEmailAndPassword(
           email: emailText, password: passwordText);
       if (newUser != null) {
@@ -66,9 +71,80 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
         Future.delayed(Duration(seconds: 2), () {
           sendChamberData(userID);
         });
+
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+                child: LoginScreen(), type: PageTransitionType.rightToLeft));
       }
     } catch (e) {
+      setState(() {
+        isLogin = false;
+      });
       print(e);
+
+      String errorText = getMessageFromErrorCode(e);
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Error'),
+          content: Text(errorText),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Close'),
+            )
+          ],
+        ),
+      );
+    }
+  }
+
+  String getMessageFromErrorCode(error) {
+    switch (error.code) {
+      case "ERROR_EMAIL_ALREADY_IN_USE":
+      case "account-exists-with-different-credential":
+      case "email-already-in-use":
+        isLogin = false;
+        return "Email already used. Go to login page.";
+        break;
+      case "ERROR_WRONG_PASSWORD":
+      case "wrong-password":
+        isLogin = false;
+        return "Wrong email/password combination.";
+        break;
+      case "ERROR_USER_NOT_FOUND":
+      case "user-not-found":
+        isLogin = false;
+        return "No user found with this email.";
+        break;
+      case "ERROR_USER_DISABLED":
+      case "user-disabled":
+        isLogin = false;
+        return "User disabled.";
+        break;
+      case "ERROR_TOO_MANY_REQUESTS":
+      case "operation-not-allowed":
+        isLogin = false;
+        return "Too many requests to log into this account.";
+        break;
+      case "ERROR_OPERATION_NOT_ALLOWED":
+      case "operation-not-allowed":
+        isLogin = false;
+        return "Server error, please try again later.";
+        break;
+      case "ERROR_INVALID_EMAIL":
+      case "invalid-email":
+        isLogin = false;
+        return "Email address is invalid.";
+        break;
+      default:
+        isLogin = false;
+        return "Login failed. Please try again.";
+        break;
     }
   }
 
@@ -77,8 +153,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendDoctor(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/doctor/';
-    final String url = 'http://192.168.43.2:8000/api/doctor';
+    // final String url = 'http://192.168.0.101:8000/api/doctor/';
+    final String url = 'http://192.168.0.101:8000/api/doctor/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
@@ -98,8 +174,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendMondayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/monday/';
-    final String url = 'http://192.168.43.2:8000/api/monday/';
+    // final String url = 'http://192.168.0.101:8000/api/monday/';
+    final String url = 'http://192.168.0.101:8000/api/monday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "monday_id": userID,
@@ -120,8 +196,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendTuesdayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/tuesday/';
-    final String url = 'http://192.168.43.2:8000/api/tuesday';
+    // final String url = 'http://192.168.0.101:8000/api/tuesday/';
+    final String url = 'http://192.168.0.101:8000/api/tuesday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "tuesday_id": userID,
@@ -142,8 +218,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendWednesdayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/wednesday/';
-    final String url = 'http://192.168.43.2:8000/api/wednesday/';
+    // final String url = 'http://192.168.0.101:8000/api/wednesday/';
+    final String url = 'http://192.168.0.101:8000/api/wednesday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "wednesday_id": userID,
@@ -164,8 +240,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendThursdayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/thursday/';
-    final String url = 'http://192.168.43.2:8000/api/thursday/';
+    // final String url = 'http://192.168.0.101:8000/api/thursday/';
+    final String url = 'http://192.168.0.101:8000/api/thursday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "thursday_id": userID,
@@ -186,8 +262,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendFridayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/friday/';
-    final String url = 'http://192.168.43.2:8000/api/friday/';
+    // final String url = 'http://192.168.0.101:8000/api/friday/';
+    final String url = 'http://192.168.0.101:8000/api/friday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "friday_id": userID,
@@ -208,8 +284,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendSaturdayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/saturday/';
-    final String url = 'http://192.168.43.2:8000/api/saturday/';
+    // final String url = 'http://192.168.0.101:8000/api/saturday/';
+    final String url = 'http://192.168.0.101:8000/api/saturday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "saturday_id": userID,
@@ -230,8 +306,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendSundayData(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/sunday/';
-    final String url = 'http://192.168.43.2:8000/api/sunday/';
+    // final String url = 'http://192.168.0.101:8000/api/sunday/';
+    final String url = 'http://192.168.0.101:8000/api/sunday/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "sunday_id": userID,
@@ -252,8 +328,8 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
   }
 
   sendChamberData(userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/chamber/';
-    final String url = 'http://192.168.43.2:8000/api/chamber/';
+    // final String url = 'http://192.168.0.101:8000/api/chamber/';
+    final String url = 'http://192.168.0.101:8000/api/chamber/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "chamber_id": userID,
@@ -500,33 +576,39 @@ class _DoctorRegistrationScreenState extends State<DoctorRegistrationScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      print(role);
-                      print(registrationNumberText);
-                      print(nameText);
-                      print(emailText);
-                      print(phoneText);
-                      print(passwordText);
-                      print(confirmPasswordText);
+                isLogin == false
+                    ? ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            print(role);
+                            print(registrationNumberText);
+                            print(nameText);
+                            print(emailText);
+                            print(phoneText);
+                            print(passwordText);
+                            print(confirmPasswordText);
 
-                      _saveItem();
+                            _saveItem();
 
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => LoginScreen()));
-                      Navigator.pushReplacement(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeftWithFade,
-                              child: LoginScreen()));
-                    }
-                  },
-                  child: Text('Register'),
-                ),
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => LoginScreen()));
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     PageTransition(
+                            //         type:
+                            //             PageTransitionType.rightToLeftWithFade,
+                            //         child: LoginScreen()));
+                            FocusScope.of(context).unfocus();
+                          }
+                        },
+                        child: Text('Register'),
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      ),
                 SizedBox(
                   height: 30,
                 ),
