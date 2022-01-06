@@ -18,7 +18,7 @@ class _UserAppointmentState extends State<UserAppointment> {
   _UserAppointmentState(this.userId);
 
   List userAppointments;
-  List reversedList;
+  List reversedList = [];
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _UserAppointmentState extends State<UserAppointment> {
   }
 
   getUserAppointment() async {
-    final String url = 'http://192.168.0.101:8000/api/appointmentuser/$userId/';
+    final String url = 'https://bcrecapc.ml/api/appointmentuser/$userId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -35,7 +35,7 @@ class _UserAppointmentState extends State<UserAppointment> {
       userAppointments = convertJson['appointment_user'];
 
       reversedList = userAppointments.reversed.toList();
-      print(reversedList);
+      print(reversedList.length);
     });
   }
 
@@ -53,109 +53,119 @@ class _UserAppointmentState extends State<UserAppointment> {
           backgroundColor: Palette.scaffoldColor,
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: userAppointments != null
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: reversedList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var userAppointment = reversedList[index];
-                    return Container(
-                        margin: EdgeInsets.only(
-                          bottom: 5,
-                          top: 5,
-                        ),
-                        width: MediaQuery.of(context).size.width,
-                        // color: Colors.red,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              // padding: EdgeInsets.only(left: 30),
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              decoration: BoxDecoration(
-                                // color: Colors.red,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(),
+        body: userAppointments == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: reversedList.length != 0
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: reversedList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var userAppointment = reversedList[index];
+                          return Container(
+                              margin: EdgeInsets.only(
+                                bottom: 5,
+                                top: 5,
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              width: MediaQuery.of(context).size.width,
+                              // color: Colors.red,
+                              child: Column(
                                 children: [
-                                  Text(
-                                    userAppointment['day']
-                                            .toString()
-                                            .characters
-                                            .take(3)
-                                            .toString()
-                                            .toUpperCase() +
-                                        " |",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    // padding: EdgeInsets.only(left: 30),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.1,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    decoration: BoxDecoration(
+                                      // color: Colors.red,
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        userAppointment['place'],
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                      Text(userAppointment['time'])
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Text(
-                                    "|",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Doctor',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      Container(
-                                        // color: Colors.red,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        child: Center(
-                                          child: AutoSizeText(
-                                            userAppointment['doctorname'],
-                                            maxLines: 1,
-                                            wrapWords: true,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          userAppointment['day']
+                                                  .toString()
+                                                  .characters
+                                                  .take(3)
+                                                  .toString()
+                                                  .toUpperCase() +
+                                              " |",
+                                          style: TextStyle(
+                                            fontSize: 20,
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  )
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              userAppointment['place'],
+                                              style: TextStyle(fontSize: 15),
+                                            ),
+                                            Text(userAppointment['time'])
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Text(
+                                          "|",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Doctor',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            Container(
+                                              // color: Colors.red,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.3,
+                                              child: Center(
+                                                child: AutoSizeText(
+                                                  userAppointment['doctorname'],
+                                                  maxLines: 1,
+                                                  wrapWords: true,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ],
-                              ),
-                            ),
-                          ],
-                        ));
-                  },
-                )
-              : Center(
-                  child: Text("No Appointments Found"),
-                ),
-        ),
+                              ));
+                        },
+                      )
+                    : Center(
+                        child: Text("No Appointments Found"),
+                      ),
+              ),
       ),
     );
   }

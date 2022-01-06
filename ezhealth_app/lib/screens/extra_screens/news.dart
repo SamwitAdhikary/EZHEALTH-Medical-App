@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:ezhealth_app/screens/user_screen/read_news.dart';
+import 'package:ezhealth_app/config/palette.dart';
+import 'package:ezhealth_app/screens/extra_screens/read_news.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 
 class News extends StatefulWidget {
   @override
@@ -37,9 +39,18 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text("EZHEALTH"),
-        // ),
+        appBar: AppBar(
+          title: Text(
+            "HEALTH NEWS",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Palette.scaffoldColor,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
         body: Container(
           child: data != null
               ? ListView.builder(
@@ -50,9 +61,9 @@ class _NewsState extends State<News> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ReadNews(myNews['url'], myNews['title'])));
+                            PageTransition(
+                                child: ReadNews(myNews['url'], myNews['title']),
+                                type: PageTransitionType.rightToLeft));
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 10, bottom: 5),
@@ -78,12 +89,13 @@ class _NewsState extends State<News> {
                                   ),
                                   Container(
                                     padding: EdgeInsets.all(10),
-                                    width: MediaQuery.of(context).size.width *
-                                        0.65,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
                                     // color: Colors.blue,
                                     child: AutoSizeText(
                                       myNews['title'],
-                                      minFontSize: 18,
+                                      minFontSize: 15,
+                                      maxFontSize: 18,
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                     ),

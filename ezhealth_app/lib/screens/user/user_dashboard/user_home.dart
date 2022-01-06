@@ -3,20 +3,26 @@ import 'dart:convert';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ezhealth_app/config/palette.dart';
-import 'package:ezhealth_app/screens/get_started.dart';
+import 'package:ezhealth_app/screens/bmi_screen/screens/input_page.dart';
+import 'package:ezhealth_app/screens/extra_screens/corona_stats.dart';
+import 'package:ezhealth_app/screens/extra_screens/news.dart';
+import 'package:ezhealth_app/screens/extra_screens/privacy_policy.dart';
+import 'package:ezhealth_app/screens/extra_screens/terms_and_condition.dart';
+import 'package:ezhealth_app/screens/extra_screens/get_started.dart';
 import 'package:ezhealth_app/screens/user/doctor_section/about_doctor.dart';
 import 'package:ezhealth_app/screens/user/doctor_section/all_available_doctors.dart';
 import 'package:ezhealth_app/screens/user/user_dashboard/user_appointment.dart';
-import 'package:ezhealth_app/screens/user_screen/corona_stats.dart';
-import 'package:ezhealth_app/screens/user_screen/news.dart';
+import 'package:ezhealth_app/screens/user/user_dashboard/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class UserHome extends StatefulWidget {
   final String userID;
@@ -32,11 +38,19 @@ class _UserHomeState extends State<UserHome> {
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
+  GlobalKey _menuKey = GlobalKey();
+  GlobalKey _coronaKey = GlobalKey();
+  GlobalKey _newsKey = GlobalKey();
+  GlobalKey _bmiKey = GlobalKey();
+  GlobalKey _seeAllDoctorKey = GlobalKey();
+
   DateTime timeBackPressed = DateTime.now();
 
   Map data;
   List doctors;
   List quotes;
+
+  String userGender;
 
   @override
   void initState() {
@@ -47,16 +61,18 @@ class _UserHomeState extends State<UserHome> {
   }
 
   getUserDetails() async {
-    final String url = 'http://192.168.0.101:8000/api/user/$userID/';
+    final String url = 'https://bcrecapc.ml/api/user/$userID/';
     // final String url =
-    //     'http://192.168.0.101:8000/api/user/I5pEXaj4EcM6PHj6xpbFRjOVo4u1/';
+    //     'https://bcrecapc.ml/api/user/I5pEXaj4EcM6PHj6xpbFRjOVo4u1/';
     // final String url = 'http://142.93.212.221/api/user/$userID/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
       data = convertJson;
+      userGender = data['user_gender'];
     });
+    print(userGender);
   }
 
   getDoctorQuotes() async {
@@ -72,7 +88,7 @@ class _UserHomeState extends State<UserHome> {
   }
 
   getDoctors() async {
-    final String url = 'http://192.168.0.101:8000/api/chamberdoctor/';
+    final String url = 'https://bcrecapc.ml/api/chamberdoctor/';
     // final String url = 'http://142.93.212.221/api/chamberdoctor/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
@@ -85,6 +101,31 @@ class _UserHomeState extends State<UserHome> {
 
   @override
   Widget build(BuildContext context) {
+    displayShowCase() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool showCaseVisibilityStatus = prefs.getBool('displayShowCase');
+
+      if (showCaseVisibilityStatus == null) {
+        prefs.setBool('displayShowCase', false);
+        return true;
+      }
+      return false;
+    }
+
+    Future.delayed(Duration(seconds: 2), () {
+      displayShowCase().then((status) {
+        if (status) {
+          ShowCaseWidget.of(context).startShowCase([
+            _menuKey,
+            _coronaKey,
+            _newsKey,
+            _bmiKey,
+            _seeAllDoctorKey,
+          ]);
+        }
+      });
+    });
+
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
@@ -109,6 +150,22 @@ class _UserHomeState extends State<UserHome> {
                 ),
                 ListTile(
                   title: Text(
+                    'User Profile',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  leading: FaIcon(FontAwesomeIcons.penAlt),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: UserProfile(userID),
+                            type: PageTransitionType.rightToLeft));
+                  },
+                ),
+                ListTile(
+                  title: Text(
                     'Your Appointments',
                     style: TextStyle(
                       fontSize: 15,
@@ -127,6 +184,34 @@ class _UserHomeState extends State<UserHome> {
                         PageTransition(
                             child: UserAppointment(userID),
                             type: PageTransitionType.rightToLeftWithFade));
+                  },
+                ),
+                ListTile(
+                  title: Text('Terms & Conditions',
+                      style: TextStyle(fontSize: 15)),
+                  leading: Icon(Icons.note_alt_outlined),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: TermsAndCondition(),
+                            type: PageTransitionType.rightToLeft));
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    'Privacy Policy',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  leading: Icon(Icons.lock),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: PrivacyPolicy(),
+                            type: PageTransitionType.rightToLeft));
                   },
                 ),
                 ListTile(
@@ -211,8 +296,9 @@ class _UserHomeState extends State<UserHome> {
                                     decoration: BoxDecoration(
                                       color: Colors.blue,
                                       image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/man.png')),
+                                          image: AssetImage(userGender == 'Male'
+                                              ? 'assets/images/man.png'
+                                              : 'assets/images/woman.png')),
                                       shape: BoxShape.circle,
                                       // border: Border.all(),
                                     ),
@@ -245,34 +331,40 @@ class _UserHomeState extends State<UserHome> {
                                               type: PageTransitionType
                                                   .rightToLeftWithFade));
                                     },
-                                    child: Container(
-                                      height: 105,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Palette.scaffoldColor,
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 5,
-                                            color: Colors.grey.withOpacity(0.5),
-                                            offset: Offset(5, 5),
-                                          )
-                                        ],
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.viruses,
-                                            size: 40,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text('Corona Stats')
-                                        ],
+                                    child: Showcase(
+                                      key: _coronaKey,
+                                      description: 'Check covid-19 status',
+                                      child: Container(
+                                        height: 105,
+                                        width: 105,
+                                        decoration: BoxDecoration(
+                                          color: Palette.scaffoldColor,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 5,
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              offset: Offset(5, 5),
+                                            )
+                                          ],
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.viruses,
+                                              size: 40,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text('Corona Stats')
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -291,67 +383,90 @@ class _UserHomeState extends State<UserHome> {
                                               type: PageTransitionType
                                                   .rightToLeftWithFade));
                                     },
-                                    child: Container(
-                                      height: 105,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Palette.scaffoldColor,
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 5,
-                                            color: Colors.grey.withOpacity(0.5),
-                                            offset: Offset(5, 5),
-                                          )
-                                        ],
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.newspaper,
-                                            size: 40,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text('News')
-                                        ],
+                                    child: Showcase(
+                                      key: _newsKey,
+                                      description:
+                                          'Read all trending medical and health news',
+                                      child: Container(
+                                        height: 105,
+                                        width: 105,
+                                        decoration: BoxDecoration(
+                                          color: Palette.scaffoldColor,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 5,
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              offset: Offset(5, 5),
+                                            )
+                                          ],
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.newspaper,
+                                              size: 40,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text('News')
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
 
                                   //! BMI
-                                  Container(
-                                    height: 105,
-                                    width: 105,
-                                    decoration: BoxDecoration(
-                                      color: Palette.scaffoldColor,
-                                      border: Border.all(),
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 5,
-                                          color: Colors.grey.withOpacity(0.5),
-                                          offset: Offset(5, 5),
-                                        )
-                                      ],
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        FaIcon(
-                                          FontAwesomeIcons.weight,
-                                          size: 40,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              child: InputPage(),
+                                              type: PageTransitionType
+                                                  .rightToLeft));
+                                    },
+                                    child: Showcase(
+                                      key: _bmiKey,
+                                      description: 'Check your Body Mass Index',
+                                      child: Container(
+                                        height: 105,
+                                        width: 105,
+                                        decoration: BoxDecoration(
+                                          color: Palette.scaffoldColor,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 5,
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              offset: Offset(5, 5),
+                                            )
+                                          ],
                                         ),
-                                        SizedBox(
-                                          height: 10,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.weight,
+                                              size: 40,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text('BMI')
+                                          ],
                                         ),
-                                        Text('BMI')
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -466,9 +581,14 @@ class _UserHomeState extends State<UserHome> {
                                     },
                                     child: Container(
                                       padding: EdgeInsets.only(right: 20),
-                                      child: Text(
-                                        'See All >',
-                                        style: TextStyle(fontSize: 18),
+                                      child: Showcase(
+                                        key: _seeAllDoctorKey,
+                                        description:
+                                            'See all available doctors',
+                                        child: Text(
+                                          'See All >',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
                                       ),
                                     ),
                                   )
@@ -620,10 +740,14 @@ class _UserHomeState extends State<UserHome> {
                     Positioned(
                       left: 5,
                       top: 30,
-                      child: IconButton(
-                        icon: Icon(Icons.menu),
-                        onPressed: () =>
-                            _scaffoldState.currentState.openDrawer(),
+                      child: Showcase(
+                        key: _menuKey,
+                        description: 'Click here for more options',
+                        child: IconButton(
+                          icon: Icon(Icons.menu),
+                          onPressed: () =>
+                              _scaffoldState.currentState.openDrawer(),
+                        ),
                       ),
                     )
                   ],

@@ -1,3 +1,4 @@
+import 'package:ezhealth_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +39,7 @@ class _ThursdayScreenState extends State<ThursdayScreen> {
   }
 
   void sendData() async {
-    final String url = 'http://192.168.0.101:8000/api/thursday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/thursday/$doctorId/';
     var response = await http.put(Uri.parse(url), body: {
       "thursday_id": doctorId,
       "chamber_location": clinicText,
@@ -62,7 +63,14 @@ class _ThursdayScreenState extends State<ThursdayScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Thursday"),
+          title: Text(
+            "THURSDAY",
+            style: TextStyle(color: Colors.black),
+          ),
+          elevation: 0,
+          backgroundColor: Palette.scaffoldColor,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,

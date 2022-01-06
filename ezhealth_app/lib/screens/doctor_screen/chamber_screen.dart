@@ -1,3 +1,4 @@
+import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/clinic_days_screen/friday.dart';
 import 'package:ezhealth_app/screens/doctor_screen/clinic_days_screen/monday.dart';
 import 'package:ezhealth_app/screens/doctor_screen/clinic_days_screen/saturday.dart';
@@ -33,7 +34,14 @@ class _ChamberScreenState extends State<ChamberScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Available Clinics"),
+          title: Text(
+            "DAY WISE CLINIC",
+            style: TextStyle(color: Colors.black),
+          ),
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Palette.scaffoldColor,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,

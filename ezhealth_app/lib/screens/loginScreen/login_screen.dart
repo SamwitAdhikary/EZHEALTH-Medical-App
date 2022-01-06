@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -56,7 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: DoctorScreen(userId),
+                    child: ShowCaseWidget(
+                      builder:
+                          Builder(builder: (context) => DoctorScreen(userId)),
+                    ),
                     type: PageTransitionType.rightToLeftWithFade),
               );
             } else if (snapshot.value['role'] == 'User') {
@@ -66,7 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement(
                   context,
                   PageTransition(
-                      child: UserHome(userId),
+                      child: ShowCaseWidget(
+                        builder:
+                            Builder(builder: (context) => UserHome(userId)),
+                      ),
                       type: PageTransitionType.rightToLeftWithFade));
             }
           });

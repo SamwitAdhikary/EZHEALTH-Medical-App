@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ezhealth_app/config/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -44,7 +45,7 @@ class _SundayScreenState extends State<SundayScreen> {
   }
 
   sendData() async {
-    final String url = 'http://192.168.0.101:8000/api/sunday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
     var response = await http.put(Uri.parse(url), body: {
       "sunday_id": doctorId,
       "chamber_location": clinicText,
@@ -56,7 +57,7 @@ class _SundayScreenState extends State<SundayScreen> {
     if (response.statusCode == 200) {
       print(response.body);
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Monday Clinic Uploaded")));
+          .showSnackBar(SnackBar(content: Text("Sunday Clinic Uploaded")));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Something Went Wrong")));
@@ -64,7 +65,7 @@ class _SundayScreenState extends State<SundayScreen> {
   }
 
   updateChamber() async {
-    final String url = 'http://192.168.0.101:8000/api/chamber/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/chamber/$doctorId/';
     try {
       var response = await http.put(Uri.parse(url), body: {
         "chamber_id": doctorId,
@@ -95,7 +96,7 @@ class _SundayScreenState extends State<SundayScreen> {
   }
 
   getData() async {
-    final String url = 'http://192.168.0.101:8000/api/sunday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -112,7 +113,14 @@ class _SundayScreenState extends State<SundayScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Sunday"),
+          title: Text(
+            "SUNDAY",
+            style: TextStyle(color: Colors.black),
+          ),
+          elevation: 0,
+          backgroundColor: Palette.scaffoldColor,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,

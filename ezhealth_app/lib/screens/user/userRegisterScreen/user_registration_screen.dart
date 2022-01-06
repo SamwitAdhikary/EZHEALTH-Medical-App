@@ -32,6 +32,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   String phoneText;
   String passwordText;
   String confirmPasswordText;
+  String _chosenValue;
 
   final _auth = FirebaseAuth.instance;
 
@@ -130,12 +131,13 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   }
 
   sendUser(String userID) async {
-    // final String url = 'http://192.168.0.101:8000/api/user/';
-    final String url = 'http://192.168.0.101:8000/api/user/';
+    // final String url = 'https://bcrecapc.ml/api/user/';
+    final String url = 'https://bcrecapc.ml/api/user/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
         "user_name": nameText,
+        "user_gender": _chosenValue,
         "mail_id": emailText,
         "phone_no": phoneText
       });
@@ -221,6 +223,37 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                           height: 20,
                         ),
 
+                        //! Gender
+                        DropdownButtonFormField(
+                          decoration: InputDecoration(
+                            label: Text("Choose Gender*"),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          validator: (value) =>
+                              value == null ? 'Field must not be empty' : null,
+                          isExpanded: true,
+                          value: _chosenValue,
+                          items: [
+                            'Male',
+                            'Female',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String value) {
+                            setState(() {
+                              _chosenValue = value;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
                         //! Email
                         TextFormField(
                           decoration: InputDecoration(
@@ -262,30 +295,52 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         SizedBox(height: 20),
 
                         //! Password
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              label: Text("Password*"),
-                              alignLabelWithHint: true,
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _visiblePassword = !_visiblePassword;
-                                    });
+                        Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      label: Text("Password*"),
+                                      alignLabelWithHint: true,
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _visiblePassword =
+                                                  !_visiblePassword;
+                                            });
+                                          },
+                                          icon: Icon(_visiblePassword == true
+                                              ? Icons.visibility
+                                              : Icons.visibility_off))),
+                                  obscureText: !_visiblePassword,
+                                  obscuringCharacter: "\u2749",
+                                  textInputAction: TextInputAction.next,
+                                  controller: _password,
+                                  validator: passwordValidate,
+                                  onSaved: (value) {
+                                    passwordText = value;
                                   },
-                                  icon: Icon(_visiblePassword == true
-                                      ? Icons.visibility
-                                      : Icons.visibility_off))),
-                          obscureText: !_visiblePassword,
-                          obscuringCharacter: "\u2749",
-                          textInputAction: TextInputAction.next,
-                          controller: _password,
-                          validator: passwordValidate,
-                          onSaved: (value) {
-                            passwordText = value;
-                          },
+                                ),
+                              ),
+                              Spacer(),
+                              Tooltip(
+                                message:
+                                    '\n\u2022 Include both lowercase and uppercase characters\n\u2022 Include atleast one number\n\u2022 Include atleast one special character\n\u2022 Be more than 6 characters long\n',
+                                triggerMode: TooltipTriggerMode.tap,
+                                showDuration: Duration(seconds: 5),
+                                preferBelow: false,
+                                child: Icon(
+                                  Icons.info_outline,
+                                  color: Colors.grey,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 20,

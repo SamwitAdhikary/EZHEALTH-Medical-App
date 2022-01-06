@@ -1,11 +1,12 @@
 import 'package:ezhealth_app/config/palette.dart';
-import 'package:ezhealth_app/screens/get_started.dart';
+import 'package:ezhealth_app/screens/extra_screens/get_started.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,8 +33,11 @@ class _OnBoardState extends State<OnBoard> {
         finishButtonText: 'Get Started',
         onFinish: () {
           _storeOnboardInfo();
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => GetStartedScreen()));
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  child: GetStartedScreen(),
+                  type: PageTransitionType.rightToLeft));
         },
         finishButtonColor: kDarkBlueColor,
         skipFunctionOverride: () {
@@ -52,31 +56,38 @@ class _OnBoardState extends State<OnBoard> {
             fontWeight: FontWeight.w600,
           ),
         ),
+        // imageHorizontalOffset: -10,
+        imageVerticalOffset: 0,
         controllerColor: kDarkBlueColor,
         totalPage: 5,
         headerBackgroundColor: Palette.scaffoldColor,
         pageBackgroundColor: Palette.scaffoldColor,
         background: [
-          Image.asset(
-            'assets/images/appointment.png',
-            height: 400,
-          ),
-          Image.asset(
-            'assets/images/corona.png',
-            height: 400,
-          ),
-          Image.asset(
-            'assets/images/news.png',
-            height: 400,
-          ),
-          Image.asset(
-            'assets/images/bmi.png',
-            height: 400,
-          ),
-          Image.asset(
-            'assets/images/get_started.png',
-            height: 400,
-          ),
+          // Image.asset(
+          //   'assets/images/calendar.png',
+          //   height: 400,
+          // ),
+          Lottie.asset('assets/animations/appointment.json', height: 400),
+          // Image.asset(
+          //   'assets/images/corona.png',
+          //   height: 400,
+          // ),
+          Lottie.asset('assets/animations/corona.json', height: 400),
+          // Image.asset(
+          //   'assets/images/news.png',
+          //   height: 400,
+          // ),
+          Lottie.asset('assets/animations/news1.json', height: 400),
+          // Image.asset(
+          //   'assets/images/bmi.png',
+          //   height: 400,
+          // ),
+          Lottie.asset('assets/animations/bmi1.json', height: 400),
+          // Image.asset(
+          //   'assets/images/get_started.png',
+          //   height: 400,
+          // ),
+          Lottie.asset('assets/animations/start1.json', height: 400),
         ],
         speed: 1.8,
         pageBodies: [

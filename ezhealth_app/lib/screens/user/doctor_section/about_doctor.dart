@@ -86,7 +86,7 @@ class _AboutDoctorState extends State<AboutDoctor>
   }
 
   getDoctorId() async {
-    final String url = 'http://192.168.0.101:8000/api/doctor/$doctorID/';
+    final String url = 'https://bcrecapc.ml/api/doctor/$doctorID/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Charset': 'utf-8',
@@ -205,7 +205,7 @@ class _AboutDoctorState extends State<AboutDoctor>
                     padding: EdgeInsets.only(left: 20),
                     width: MediaQuery.of(context).size.width,
                     child: Text(
-                      'About Doctor:',
+                      'About Doctor :',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:ezhealth_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -20,7 +21,13 @@ class _ReadNewsState extends State<ReadNews> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(
+            title,
+            style: TextStyle(color: Colors.black),
+          ),
+          elevation: 0,
+          backgroundColor: Palette.scaffoldColor,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
         body: WebView(
           initialUrl: url,

@@ -109,6 +109,7 @@ class Chamber(models.Model):
 class User(models.Model):
     registration_id = models.CharField(primary_key=True, max_length=30, default='')
     user_name = models.CharField(max_length=30, default='')
+    user_gender = models.CharField(max_length=10, default='')
     mail_id = models.EmailField(default='')
     phone_no = models.BigIntegerField(default=0)
 

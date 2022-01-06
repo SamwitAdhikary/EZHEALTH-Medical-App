@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
-import 'package:ezhealth_app/screens/get_started.dart';
+import 'package:ezhealth_app/screens/extra_screens/get_started.dart';
 import 'package:ezhealth_app/screens/onboarding/onboard.dart';
 import 'package:ezhealth_app/screens/user/user_dashboard/user_home.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -44,9 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
             : Builder(
                 builder: (context) {
                   if (role == 'Doctor') {
-                    return DoctorScreen(doctorId);
+                    return ShowCaseWidget(
+                      builder:
+                          Builder(builder: (context) => DoctorScreen(doctorId)),
+                    );
                   } else if (role == 'User') {
-                    return UserHome(userId);
+                    return ShowCaseWidget(
+                      builder: Builder(builder: (context) => UserHome(userId)),
+                    );
                   } else if (role == null) {
                     return GetStartedScreen();
                   }

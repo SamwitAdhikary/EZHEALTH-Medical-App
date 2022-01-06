@@ -6,7 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'loginScreen/login_screen.dart';
+import '../loginScreen/login_screen.dart';
 // import 'package:telephony/telephony.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -15,31 +15,6 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-  // Telephony telephony = Telephony.instance;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   initPlatformState();
-  // }
-
-  // Future<void> initPlatformState() async {
-  //   final bool grantedPermission =
-  //       await telephony.requestPhoneAndSmsPermissions;
-
-  //   final bool canSendSms = await telephony.isSmsCapable;
-
-  //   SimState simState = await telephony.simState;
-
-  //   if (grantedPermission != null && grantedPermission) {
-  //     print(grantedPermission);
-  //   } else {
-  //     print('error');
-  //   }
-
-  //   print(simState);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -105,7 +80,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 40),
                   child: Text(
-                    "Start by choosing your role.",
+                    "Sign up by choosing your role.",
                     style: TextStyle(
                       fontSize: 16,
                     ),

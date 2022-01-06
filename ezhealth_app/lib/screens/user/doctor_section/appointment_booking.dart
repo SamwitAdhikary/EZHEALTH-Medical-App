@@ -38,7 +38,6 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   //   print(status);
   // };
 
-
   bool _mondaySelected;
   bool _tuesdaySelected;
   bool _wednesdaySelected;
@@ -48,6 +47,9 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   bool _sundaySelected;
 
   Map user;
+  Map doctor;
+
+  String doctorDesignation;
 
   Map monday;
   Map tuesday;
@@ -109,7 +111,6 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
 
     _razorpay = new Razorpay();
 
-
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, successHandler);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, failureHandler);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, externalWalletHandler);
@@ -131,6 +132,8 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
     getFriday();
     getSaturday();
     getSunday();
+
+    getDoctorData();
   }
 
   @override
@@ -173,8 +176,20 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
     print('External Wallet');
   }
 
+  getDoctorData() async {
+    final String url = 'https://bcrecapc.ml/api/doctor/$doctorId/';
+    var response = await http.get(Uri.parse(url));
+    if (!mounted) return;
+    setState(() {
+      var convertJson = json.decode(response.body);
+      doctor = convertJson;
+      doctorDesignation = doctor['designation'];
+      print(doctorDesignation);
+    });
+  }
+
   getUserDetails() async {
-    final String url = 'http://192.168.0.101:8000/api/user/$userID/';
+    final String url = 'https://bcrecapc.ml/api/user/$userID/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Charset': 'utf-8',
@@ -188,7 +203,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getMonday() async {
-    final String url = 'http://192.168.0.101:8000/api/monday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/monday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -207,7 +222,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getTuesday() async {
-    final String url = 'http://192.168.0.101:8000/api/tuesday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/tuesday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/tuesday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -225,7 +240,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getWednesday() async {
-    final String url = 'http://192.168.0.101:8000/api/wednesday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/wednesday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/wednesday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -243,7 +258,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getThursday() async {
-    final String url = 'http://192.168.0.101:8000/api/thursday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/thursday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/thursday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -261,7 +276,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getFriday() async {
-    final String url = 'http://192.168.0.101:8000/api/friday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/friday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/friday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -279,7 +294,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getSaturday() async {
-    final String url = 'http://192.168.0.101:8000/api/saturday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/saturday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/saturday/$doctorId';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -297,7 +312,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getSunday() async {
-    final String url = 'http://192.168.0.101:8000/api/sunday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/sunday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -315,7 +330,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseMondaySlot(int mondaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/monday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -330,7 +345,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseTuesdaySlot(int tuesdaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/tuesday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/tuesday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -345,7 +360,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseWednesdaySlot(int wednesdaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/wednesday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/wednesday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -360,7 +375,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseThursdaySlot(int thursdaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/thursday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/thursday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -375,7 +390,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseFridaySlot(int fridaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/friday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/friday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -390,7 +405,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseSaturdaySlot(int saturdaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/saturday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/saturday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -405,7 +420,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseSundaySlot(int sundaySlotValue) async {
-    final String url = 'http://192.168.0.101:8000/api/sunday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -420,7 +435,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   appointment() async {
-    final String url = 'http://192.168.0.101:8000/api/appointment/';
+    final String url = 'https://bcrecapc.ml/api/appointment/';
     var response = await http.post(Uri.parse(url), body: {
       "username": userName,
       "doctorname": doctorName,
@@ -436,7 +451,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
         builder: (_) => AlertDialog(
           title: Text('Success'),
           content: Text(
-              'You have successfully booked the appointment at $time on $day at $place.'),
+              'You have successfully booked the appointment at $time on $day at $place under Dr. $doctorName($doctorDesignation).'),
           actions: [
             ElevatedButton(
               onPressed: () {
@@ -550,7 +565,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
           'user_email': email,
           'user_subject': 'Appointment Booked',
           'user_message':
-              'You have successfully booked the appointment at $time on $day at $place under doctor $doctorName',
+              'You have successfully booked the appointment at $time on $day at $place under Dr. $doctorName($doctorDesignation).',
         }
       }),
     );
@@ -591,843 +606,933 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 // color: Colors.yellow,
-                child: Column(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.75,
-                      width: MediaQuery.of(context).size.width,
-                      // color: Colors.yellow,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: [
-                            Column(
-                              children: [
-                                //!Monday
-                                mondayChamber != "" && mondaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
+                child: mondayChamber != "" && mondaySlotInt != 0 ||
+                        tuesdayChamber != "" && tuesdaySlotInt != 0 ||
+                        wednesdayChamber != "" && wednesdaySlotInt != 0 ||
+                        thursdayChamber != "" && thursdaySlotInt != 0 ||
+                        fridayChamber != "" && fridaySlotInt != 0 ||
+                        saturdayChamber != "" && saturdaySlotInt != 0 ||
+                        sundayChamber != "" && sundaySlotInt != 0
+                    ? Column(
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            width: MediaQuery.of(context).size.width,
+                            // color: Colors.yellow,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Column(
+                                children: [
+                                  Column(
+                                    children: [
+                                      //!Monday
+                                      mondayChamber != "" && mondaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
 
-                                                day = 'Monday';
-                                                place = mondayChamber;
-                                                time = mondayTime;
+                                                      day = 'Monday';
+                                                      place = mondayChamber;
+                                                      time = mondayTime;
 
-                                                print(place);
-                                                print(day);
-                                                print(time);
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
 
-                                                _mondaySelected = true;
-                                                _tuesdaySelected = false;
-                                                _wednesdaySelected = false;
-                                                _thursdaySelected = false;
-                                                _fridaySelected = false;
-                                                _saturdaySelected = false;
-                                                _sundaySelected = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: _mondaySelected != false
-                                                    ? Border.all(
-                                                        color: Colors.green)
-                                                    : Border.all(),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "MON |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                      _mondaySelected = true;
+                                                      _tuesdaySelected = false;
+                                                      _wednesdaySelected =
+                                                          false;
+                                                      _thursdaySelected = false;
+                                                      _fridaySelected = false;
+                                                      _saturdaySelected = false;
+                                                      _sundaySelected = false;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border: _mondaySelected !=
+                                                              false
+                                                          ? Border.all(
+                                                              color:
+                                                                  Colors.green,
+                                                              width: 3)
+                                                          : Border.all(),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "MON |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              mondayChamber !=
+                                                                      null
+                                                                  ? mondayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(mondayTime !=
+                                                                    null
+                                                                ? mondayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(mondaySlot !=
+                                                                    null
+                                                                ? mondaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        mondayChamber != null
-                                                            ? mondayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(mondayTime != null
-                                                          ? mondayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+
+                                      //! Tuesday
+                                      tuesdayChamber != "" &&
+                                              tuesdaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
+
+                                                      day = 'Tuesday';
+                                                      place = tuesdayChamber;
+                                                      time = tuesdayTime;
+
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
+
+                                                      _mondaySelected = false;
+                                                      _tuesdaySelected = true;
+                                                      _wednesdaySelected =
+                                                          false;
+                                                      _thursdaySelected = false;
+                                                      _fridaySelected = false;
+                                                      _saturdaySelected = false;
+                                                      _sundaySelected = false;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border:
+                                                          _tuesdaySelected !=
+                                                                  false
+                                                              ? Border.all(
+                                                                  color: Colors
+                                                                      .green,
+                                                                  width: 3)
+                                                              : Border.all(),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "TUE |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(mondaySlot != null
-                                                          ? mondaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-
-                                //! Tuesday
-                                tuesdayChamber != "" && tuesdaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
-
-                                                day = 'Tuesday';
-                                                place = tuesdayChamber;
-                                                time = tuesdayTime;
-
-                                                print(place);
-                                                print(day);
-                                                print(time);
-
-                                                _mondaySelected = false;
-                                                _tuesdaySelected = true;
-                                                _wednesdaySelected = false;
-                                                _thursdaySelected = false;
-                                                _fridaySelected = false;
-                                                _saturdaySelected = false;
-                                                _sundaySelected = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border:
-                                                    _tuesdaySelected != false
-                                                        ? Border.all(
-                                                            color: Colors.green)
-                                                        : Border.all(),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "TUE |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              tuesdayChamber !=
+                                                                      null
+                                                                  ? tuesdayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(tuesdayTime !=
+                                                                    null
+                                                                ? tuesdayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(tuesdaySlot !=
+                                                                    null
+                                                                ? tuesdaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        tuesdayChamber != null
-                                                            ? tuesdayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(tuesdayTime != null
-                                                          ? tuesdayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+
+                                      //! Wednesday
+                                      wednesdayChamber != "" &&
+                                              wednesdaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
+
+                                                      day = 'Wednesday';
+                                                      place = wednesdayChamber;
+                                                      time = wednesdayTime;
+
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
+
+                                                      _mondaySelected = false;
+                                                      _tuesdaySelected = false;
+                                                      _wednesdaySelected = true;
+                                                      _thursdaySelected = false;
+                                                      _fridaySelected = false;
+                                                      _saturdaySelected = false;
+                                                      _sundaySelected = false;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border:
+                                                          _wednesdaySelected ==
+                                                                  false
+                                                              ? Border.all()
+                                                              : Border.all(
+                                                                  color: Colors
+                                                                      .green,
+                                                                  width: 3),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "WED |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(tuesdaySlot != null
-                                                          ? tuesdaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-
-                                //! Wednesday
-                                wednesdayChamber != "" && wednesdaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
-
-                                                day = 'Wednesday';
-                                                place = wednesdayChamber;
-                                                time = wednesdayTime;
-
-                                                print(place);
-                                                print(day);
-                                                print(time);
-
-                                                _mondaySelected = false;
-                                                _tuesdaySelected = false;
-                                                _wednesdaySelected = true;
-                                                _thursdaySelected = false;
-                                                _fridaySelected = false;
-                                                _saturdaySelected = false;
-                                                _sundaySelected = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: _wednesdaySelected ==
-                                                        false
-                                                    ? Border.all()
-                                                    : Border.all(
-                                                        color: Colors.green),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "WED |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              wednesdayChamber !=
+                                                                      null
+                                                                  ? wednesdayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(wednesdayTime !=
+                                                                    null
+                                                                ? wednesdayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(wednesdaySlot !=
+                                                                    null
+                                                                ? wednesdaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        wednesdayChamber != null
-                                                            ? wednesdayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(wednesdayTime != null
-                                                          ? wednesdayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+
+                                      //! Thursday
+                                      thursdayChamber != "" &&
+                                              thursdaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
+
+                                                      day = 'Thursday';
+                                                      place = thursdayChamber;
+                                                      time = thursdayTime;
+
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
+
+                                                      _mondaySelected = false;
+                                                      _tuesdaySelected = false;
+                                                      _wednesdaySelected =
+                                                          false;
+                                                      _thursdaySelected = true;
+                                                      _fridaySelected = false;
+                                                      _saturdaySelected = false;
+                                                      _sundaySelected = false;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border:
+                                                          _thursdaySelected ==
+                                                                  false
+                                                              ? Border.all()
+                                                              : Border.all(
+                                                                  color: Colors
+                                                                      .green,
+                                                                  width: 3),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "THU |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(wednesdaySlot != null
-                                                          ? wednesdaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-
-                                //! Thursday
-                                thursdayChamber != "" && thursdaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
-
-                                                day = 'Thursday';
-                                                place = thursdayChamber;
-                                                time = thursdayTime;
-
-                                                print(place);
-                                                print(day);
-                                                print(time);
-
-                                                _mondaySelected = false;
-                                                _tuesdaySelected = false;
-                                                _wednesdaySelected = false;
-                                                _thursdaySelected = true;
-                                                _fridaySelected = false;
-                                                _saturdaySelected = false;
-                                                _sundaySelected = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: _thursdaySelected ==
-                                                        false
-                                                    ? Border.all()
-                                                    : Border.all(
-                                                        color: Colors.green),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "THU |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              thursdayChamber !=
+                                                                      null
+                                                                  ? thursdayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(thursdayTime !=
+                                                                    null
+                                                                ? thursdayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(thursdaySlot !=
+                                                                    null
+                                                                ? thursdaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        thursdayChamber != null
-                                                            ? thursdayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(thursdayTime != null
-                                                          ? thursdayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+
+                                      //! Friday
+                                      fridayChamber != "" && fridaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
+
+                                                      day = 'Friday';
+                                                      place = fridayChamber;
+                                                      time = fridayTime;
+
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
+
+                                                      _mondaySelected = false;
+                                                      _tuesdaySelected = false;
+                                                      _wednesdaySelected =
+                                                          false;
+                                                      _thursdaySelected = false;
+                                                      _fridaySelected = true;
+                                                      _saturdaySelected = false;
+                                                      _sundaySelected = false;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border: _fridaySelected ==
+                                                              false
+                                                          ? Border.all()
+                                                          : Border.all(
+                                                              color:
+                                                                  Colors.green,
+                                                              width: 3),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "FRI |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(thursdaySlot != null
-                                                          ? thursdaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-
-                                //! Friday
-                                fridayChamber != "" && fridaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
-
-                                                day = 'Friday';
-                                                place = fridayChamber;
-                                                time = fridayTime;
-
-                                                print(place);
-                                                print(day);
-                                                print(time);
-
-                                                _mondaySelected = false;
-                                                _tuesdaySelected = false;
-                                                _wednesdaySelected = false;
-                                                _thursdaySelected = false;
-                                                _fridaySelected = true;
-                                                _saturdaySelected = false;
-                                                _sundaySelected = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: _fridaySelected == false
-                                                    ? Border.all()
-                                                    : Border.all(
-                                                        color: Colors.green),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "FRI |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              fridayChamber !=
+                                                                      null
+                                                                  ? fridayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(fridayTime !=
+                                                                    null
+                                                                ? fridayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(fridaySlot !=
+                                                                    null
+                                                                ? fridaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        fridayChamber != null
-                                                            ? fridayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(fridayTime != null
-                                                          ? fridayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+
+                                      //! Saturday
+                                      saturdayChamber != "" &&
+                                              saturdaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
+
+                                                      day = 'Saturday';
+                                                      place = saturdayChamber;
+                                                      time = saturdayTime;
+
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
+
+                                                      _mondaySelected = false;
+                                                      _tuesdaySelected = false;
+                                                      _wednesdaySelected =
+                                                          false;
+                                                      _thursdaySelected = false;
+                                                      _fridaySelected = false;
+                                                      _saturdaySelected = true;
+                                                      _sundaySelected = false;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border:
+                                                          _saturdaySelected ==
+                                                                  false
+                                                              ? Border.all()
+                                                              : Border.all(
+                                                                  color: Colors
+                                                                      .green,
+                                                                  width: 3),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "SAT |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(fridaySlot != null
-                                                          ? fridaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-
-                                //! Saturday
-                                saturdayChamber != "" && saturdaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
-
-                                                day = 'Saturday';
-                                                place = saturdayChamber;
-                                                time = saturdayTime;
-
-                                                print(place);
-                                                print(day);
-                                                print(time);
-
-                                                _mondaySelected = false;
-                                                _tuesdaySelected = false;
-                                                _wednesdaySelected = false;
-                                                _thursdaySelected = false;
-                                                _fridaySelected = false;
-                                                _saturdaySelected = true;
-                                                _sundaySelected = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: _saturdaySelected ==
-                                                        false
-                                                    ? Border.all()
-                                                    : Border.all(
-                                                        color: Colors.green),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "SAT |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              saturdayChamber !=
+                                                                      null
+                                                                  ? saturdayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(saturdayTime !=
+                                                                    null
+                                                                ? saturdayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(saturdaySlot !=
+                                                                    null
+                                                                ? saturdaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        saturdayChamber != null
-                                                            ? saturdayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(saturdayTime != null
-                                                          ? saturdayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+
+                                      //! Sunday
+                                      sundayChamber != "" && sundaySlotInt != 0
+                                          ? Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      print('clicked');
+
+                                                      day = 'Sunday';
+                                                      place = sundayChamber;
+                                                      time = sundayTime;
+
+                                                      print(place);
+                                                      print(day);
+                                                      print(time);
+
+                                                      _mondaySelected = false;
+                                                      _tuesdaySelected = false;
+                                                      _wednesdaySelected =
+                                                          false;
+                                                      _thursdaySelected = false;
+                                                      _fridaySelected = false;
+                                                      _saturdaySelected = false;
+                                                      _sundaySelected = true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    // padding: EdgeInsets.only(left: 30),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.1,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      border: _sundaySelected ==
+                                                              false
+                                                          ? Border.all()
+                                                          : Border.all(
+                                                              color:
+                                                                  Colors.green,
+                                                              width: 3),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "SUN |",
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(saturdaySlot != null
-                                                          ? saturdaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-
-                                //! Sunday
-                                sundayChamber != "" && sundaySlotInt != 0
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                print('clicked');
-
-                                                day = 'Sunday';
-                                                place = sundayChamber;
-                                                time = sundayTime;
-
-                                                print(place);
-                                                print(day);
-                                                print(time);
-
-                                                _mondaySelected = false;
-                                                _tuesdaySelected = false;
-                                                _wednesdaySelected = false;
-                                                _thursdaySelected = false;
-                                                _fridaySelected = false;
-                                                _saturdaySelected = false;
-                                                _sundaySelected = true;
-                                              });
-                                            },
-                                            child: Container(
-                                              // padding: EdgeInsets.only(left: 30),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.9,
-                                              decoration: BoxDecoration(
-                                                // color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: _sundaySelected == false
-                                                    ? Border.all()
-                                                    : Border.all(
-                                                        color: Colors.green),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "SUN |",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              sundayChamber !=
+                                                                      null
+                                                                  ? sundayChamber
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(sundayTime !=
+                                                                    null
+                                                                ? sundayTime
+                                                                : "")
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Text(
+                                                          "|",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Slot Available',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            Text(sundaySlot !=
+                                                                    null
+                                                                ? sundaySlot
+                                                                : "")
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        sundayChamber != null
-                                                            ? sundayChamber
-                                                            : '',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(sundayTime != null
-                                                          ? sundayTime
-                                                          : "")
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Text(
-                                                    "|",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 15,
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Slot Available',
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                      Text(sundaySlot != null
-                                                          ? sundaySlot
-                                                          : "")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Offstage(),
-                              ],
+                                                ),
+                                              ],
+                                            )
+                                          : Offstage(),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 50,
+                            width: 100,
+                            // alignment: Alignment.bottomCenter,
+                            // color: Colors.red,
+                            child: ElevatedButton(
+                              onPressed: _mondaySelected ||
+                                      _tuesdaySelected ||
+                                      _wednesdaySelected ||
+                                      _thursdaySelected ||
+                                      _fridaySelected ||
+                                      _saturdaySelected ||
+                                      _sundaySelected
+                                  ? () {
+                                      print('clicked on book');
+                                      // appointment();
+                                      confirmToPay();
+                                    }
+                                  : null,
+                              child: Text('Book'),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      height: 50,
-                      width: 100,
-                      // alignment: Alignment.bottomCenter,
-                      // color: Colors.red,
-                      child: ElevatedButton(
-                        onPressed: _mondaySelected ||
-                                _tuesdaySelected ||
-                                _wednesdaySelected ||
-                                _thursdaySelected ||
-                                _fridaySelected ||
-                                _saturdaySelected ||
-                                _sundaySelected
-                            ? () {
-                                print('clicked on book');
-                                // appointment();
-                                confirmToPay();
-                              }
-                            : null,
-                        child: Text('Book'),
-                      ),
-                    ),
-                  ],
-                ),
               )
             : Center(
                 child: Text("No Clinics Available"),

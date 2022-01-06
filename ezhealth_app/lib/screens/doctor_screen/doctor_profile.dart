@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ezhealth_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -37,6 +38,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
   String designationText;
   String phoneText;
 
+  String doctorGender;
+
   bool isSave = false;
 
   Map myDoctor;
@@ -48,21 +51,22 @@ class _DoctorProfileState extends State<DoctorProfile> {
   final _phone = TextEditingController();
 
   void updateItem() async {
-    // final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId';
-    final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId/';
+    // final String url = 'https://bcrecapc.ml/api/doctor/$doctorId';
+    final String url = 'https://bcrecapc.ml/api/doctor/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
       var convertJson = json.decode(response.body);
       myDoctor = convertJson;
-      print(myDoctor);
+      doctorGender = myDoctor['doctor_gender'];
+      print(doctorGender);
     });
   }
 
   void saveItem() async {
     isSave = true;
-    // final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId/';
-    final String url = 'http://192.168.0.101:8000/api/doctor/$doctorId/';
+    // final String url = 'https://bcrecapc.ml/api/doctor/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/doctor/$doctorId/';
     try {
       var response = await http.put(Uri.parse(url), body: {
         "doctor_name": nameText,
@@ -101,38 +105,47 @@ class _DoctorProfileState extends State<DoctorProfile> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Profile"),
+          title: Text(
+            "DOCTOR PROFILE",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: Palette.scaffoldColor,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           // color: Colors.red,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 150,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 3),
-                    // color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.grey,
-                    size: 50,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                myDoctor != null
-                    ? Container(
+          child: myDoctor != null
+              ? SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        height: 150,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          // border: Border.all(color: Colors.grey, width: 3),
+                          color: Colors.blue,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(doctorGender == 'Male'
+                                ? 'assets/images/doctor-male.png'
+                                : 'assets/images/doctor.png'),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
                         padding: EdgeInsets.only(left: 10, right: 10),
                         child: Form(
                           key: _formKey,
@@ -289,34 +302,36 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             ],
                           ),
                         ),
-                      )
-                    : CircularProgressIndicator(),
-                SizedBox(
-                  height: 30,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      isSave == false
+                          ? ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+                                  saveItem();
+                                  updateItem();
+                                }
+
+                                print(nameText);
+                                print(degreeText);
+                                print(designationText);
+                                print(phoneText);
+                                print(doctorId);
+
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: Text("Save"),
+                            )
+                          : CircularProgressIndicator()
+                    ],
+                  ),
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
                 ),
-                isSave == false
-                    ? ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
-                            saveItem();
-                            updateItem();
-                          }
-
-                          print(nameText);
-                          print(degreeText);
-                          print(designationText);
-                          print(phoneText);
-                          print(doctorId);
-
-                          FocusScope.of(context).unfocus();
-                        },
-                        child: Text("Save"),
-                      )
-                    : CircularProgressIndicator()
-              ],
-            ),
-          ),
         ),
       ),
     );
