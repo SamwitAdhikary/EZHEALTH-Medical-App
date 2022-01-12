@@ -46,7 +46,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   void updateData() async {
-    final String url = 'https://bcrecapc.ml/api/doctor/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/doctor/$doctorId/';
 
     try {
       var response = await http.put(Uri.parse(url), body: {

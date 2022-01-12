@@ -177,7 +177,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getDoctorData() async {
-    final String url = 'https://bcrecapc.ml/api/doctor/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/doctor/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -189,7 +189,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getUserDetails() async {
-    final String url = 'https://bcrecapc.ml/api/user/$userID/';
+    final String url = 'http://192.168.43.2:8000/api/user/$userID/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Charset': 'utf-8',
@@ -203,7 +203,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getMonday() async {
-    final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/monday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -222,7 +222,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getTuesday() async {
-    final String url = 'https://bcrecapc.ml/api/tuesday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/tuesday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/tuesday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -240,7 +240,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getWednesday() async {
-    final String url = 'https://bcrecapc.ml/api/wednesday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/wednesday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -258,7 +258,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getThursday() async {
-    final String url = 'https://bcrecapc.ml/api/thursday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/thursday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/thursday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -276,7 +276,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getFriday() async {
-    final String url = 'https://bcrecapc.ml/api/friday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/friday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/friday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -294,7 +294,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getSaturday() async {
-    final String url = 'https://bcrecapc.ml/api/saturday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/saturday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/saturday/$doctorId';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -312,7 +312,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   getSunday() async {
-    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
     // final String url = 'http://142.93.212.221/api/sunday/$doctorId/';
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -330,7 +330,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseMondaySlot(int mondaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -345,7 +345,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseTuesdaySlot(int tuesdaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/tuesday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/tuesday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -360,7 +360,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseWednesdaySlot(int wednesdaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/wednesday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/wednesday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -375,7 +375,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseThursdaySlot(int thursdaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/thursday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/thursday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -390,7 +390,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseFridaySlot(int fridaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/friday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/friday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -405,7 +405,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseSaturdaySlot(int saturdaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/saturday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/saturday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -420,7 +420,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   decreaseSundaySlot(int sundaySlotValue) async {
-    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
     var response = await http.put(
       Uri.parse(url),
       body: {
@@ -435,7 +435,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
   }
 
   appointment() async {
-    final String url = 'https://bcrecapc.ml/api/appointment/';
+    final String url = 'http://192.168.43.2:8000/api/appointment/';
     var response = await http.post(Uri.parse(url), body: {
       "username": userName,
       "doctorname": doctorName,

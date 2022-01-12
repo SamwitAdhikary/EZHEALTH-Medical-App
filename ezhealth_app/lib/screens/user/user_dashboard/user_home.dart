@@ -61,9 +61,9 @@ class _UserHomeState extends State<UserHome> {
   }
 
   getUserDetails() async {
-    final String url = 'https://bcrecapc.ml/api/user/$userID/';
+    final String url = 'http://192.168.43.2:8000/api/user/$userID/';
     // final String url =
-    //     'https://bcrecapc.ml/api/user/I5pEXaj4EcM6PHj6xpbFRjOVo4u1/';
+    //     'http://192.168.43.2:8000/api/user/I5pEXaj4EcM6PHj6xpbFRjOVo4u1/';
     // final String url = 'http://142.93.212.221/api/user/$userID/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
@@ -88,7 +88,7 @@ class _UserHomeState extends State<UserHome> {
   }
 
   getDoctors() async {
-    final String url = 'https://bcrecapc.ml/api/chamberdoctor/';
+    final String url = 'http://192.168.43.2:8000/api/chamberdoctor/';
     // final String url = 'http://142.93.212.221/api/chamberdoctor/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
@@ -214,6 +214,7 @@ class _UserHomeState extends State<UserHome> {
                             type: PageTransitionType.rightToLeft));
                   },
                 ),
+                Divider(color: Colors.grey),
                 ListTile(
                   title: Text('LogOut'),
                   leading: Icon(Icons.logout),

@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
 import 'package:ezhealth_app/screens/extra_screens/get_started.dart';
+import 'package:ezhealth_app/screens/extra_screens/offline.dart';
 import 'package:ezhealth_app/screens/onboarding/onboard.dart';
 import 'package:ezhealth_app/screens/user/user_dashboard/user_home.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +20,32 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   final splashDelay = 4;
 
+  bool connection = true;
+  Connectivity connectivity;
+
+  StreamSubscription<ConnectivityResult> subscription;
+
   @override
   void initState() {
     super.initState();
+    connectivity = Connectivity();
+    subscription =
+        connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+      print(result);
+      if (result == ConnectivityResult.mobile ||
+          result == ConnectivityResult.wifi) {
+        setState(() {
+          connection = false;
+        });
+      }
+    });
     _loadWidget();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
 
   _loadWidget() {
@@ -40,25 +64,28 @@ class _SplashScreenState extends State<SplashScreen> {
       context,
       PageTransition(
         type: PageTransitionType.rightToLeft,
-        child: isViewed != 0
-            ? OnBoard()
-            : Builder(
-                builder: (context) {
-                  if (role == 'Doctor') {
-                    return ShowCaseWidget(
-                      builder:
-                          Builder(builder: (context) => DoctorScreen(doctorId)),
-                    );
-                  } else if (role == 'User') {
-                    return ShowCaseWidget(
-                      builder: Builder(builder: (context) => UserHome(userId)),
-                    );
-                  } else if (role == null) {
-                    return GetStartedScreen();
-                  }
-                  return GetStartedScreen();
-                },
-              ),
+        child: connection
+            ? Offline()
+            : isViewed != 0
+                ? OnBoard()
+                : Builder(
+                    builder: (context) {
+                      if (role == 'Doctor') {
+                        return ShowCaseWidget(
+                          builder: Builder(
+                              builder: (context) => DoctorScreen(doctorId)),
+                        );
+                      } else if (role == 'User') {
+                        return ShowCaseWidget(
+                          builder:
+                              Builder(builder: (context) => UserHome(userId)),
+                        );
+                      } else if (role == null) {
+                        return GetStartedScreen();
+                      }
+                      return GetStartedScreen();
+                    },
+                  ),
       ),
     );
   }

@@ -45,7 +45,7 @@ class _SundayScreenState extends State<SundayScreen> {
   }
 
   sendData() async {
-    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
     var response = await http.put(Uri.parse(url), body: {
       "sunday_id": doctorId,
       "chamber_location": clinicText,
@@ -65,7 +65,7 @@ class _SundayScreenState extends State<SundayScreen> {
   }
 
   updateChamber() async {
-    final String url = 'https://bcrecapc.ml/api/chamber/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/chamber/$doctorId/';
     try {
       var response = await http.put(Uri.parse(url), body: {
         "chamber_id": doctorId,
@@ -96,7 +96,7 @@ class _SundayScreenState extends State<SundayScreen> {
   }
 
   getData() async {
-    final String url = 'https://bcrecapc.ml/api/sunday/$doctorId/';
+    final String url = 'http://192.168.43.2:8000/api/sunday/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {

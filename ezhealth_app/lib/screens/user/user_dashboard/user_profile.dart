@@ -39,7 +39,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   void getUserDetails() async {
-    final String url = 'https://bcrecapc.ml/api/user/$userId/';
+    final String url = 'http://192.168.43.2:8000/api/user/$userId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -51,7 +51,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   void updateUserDetails() async {
-    final String url = 'https://bcrecapc.ml/api/user/$userId/';
+    final String url = 'http://192.168.43.2:8000/api/user/$userId/';
     try {
       var response = await http.put(Uri.parse(url),
           body: {"user_name": nameText, "phone_no": phoneText});
