@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "277545087340",
+    "project_id": "ezhealth-release",
+    "storage_bucket": "ezhealth-release.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277545087340:android:cca67fb9e14ee4edcd4349",
+        "android_client_info": {
+          "package_name": "com.samwit.ezhealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "277545087340-vdrh30f3rohah6i9m87ihfh8hg85iitr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samwit.ezhealth",
+            "certificate_hash": "ae8410b7078583e0727bb7f16ae4034619d598c2"
+          }
+        },
+        {
+          "client_id": "277545087340-8trjbhp5ok9khgjtk2rlsgp4q5ur83jg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfgIrRykSCm1ndlJVWxTPWEZb05p10blU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "277545087340-8trjbhp5ok9khgjtk2rlsgp4q5ur83jg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
