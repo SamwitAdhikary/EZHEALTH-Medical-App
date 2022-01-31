@@ -55,7 +55,7 @@ Run the App
     flutter run
 ```
 ### Created and maintained by 
-[Samwit Adhikary]('https://github.com/SamwitAdhikary') [(Facebook)]('https://www.facebook.com/samwit.adhikary') [(Instagram)]('https://www.instagram.com/samwit_adhikary')
+[Samwit Adhikary](https://github.com/SamwitAdhikary) [(Facebook)](https://www.facebook.com/samwit.adhikary) [(Instagram)](https://www.instagram.com/samwit_adhikary)
 
 
 If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of ☕<br>
