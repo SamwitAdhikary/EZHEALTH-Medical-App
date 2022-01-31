@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../loginScreen/login_screen.dart';
-// import 'package:telephony/telephony.dart';
 
 class GetStartedScreen extends StatefulWidget {
   @override
@@ -39,16 +38,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   child: InkWell(
                     onTap: () {
                       print('pressed on login');
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => LoginScreen()));
                       Navigator.push(
                           context,
                           PageTransition(
                               child: LoginScreen(),
                               type: PageTransitionType.rightToLeftWithFade));
-                      // FirebaseAuth.instance.signOut();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -95,10 +89,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
                     print('pressed on doctor');
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => DoctorRegistrationScreen()));
                     Navigator.push(
                         context,
                         PageTransition(
@@ -155,10 +145,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
                     print('pressed on patient');
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => UserRegistrationScreen()));
                     Navigator.push(
                         context,
                         PageTransition(
@@ -169,7 +155,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(
-                      // color: Colors.blue,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(),
                     ),

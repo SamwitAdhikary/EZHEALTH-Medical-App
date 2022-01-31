@@ -59,7 +59,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
 
   getAppointmentDetails() async {
     final String url =
-        'http://192.168.43.2:8000/api/appointmentdoctor/$userId/';
+        'https://bcrecapc.ml/api/appointmentdoctor/$userId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -72,8 +72,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
   }
 
   void getDoctor() async {
-    // final String url = 'http://192.168.43.2:8000/api/doctor/$userId/';
-    final String url = 'http://192.168.43.2:8000/api/doctor/$userId/';
+    // final String url = 'https://bcrecapc.ml/api/doctor/$userId/';
+    final String url = 'https://bcrecapc.ml/api/doctor/$userId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {

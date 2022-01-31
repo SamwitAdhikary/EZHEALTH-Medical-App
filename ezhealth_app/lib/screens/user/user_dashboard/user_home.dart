@@ -61,10 +61,7 @@ class _UserHomeState extends State<UserHome> {
   }
 
   getUserDetails() async {
-    final String url = 'http://192.168.43.2:8000/api/user/$userID/';
-    // final String url =
-    //     'http://192.168.43.2:8000/api/user/I5pEXaj4EcM6PHj6xpbFRjOVo4u1/';
-    // final String url = 'http://142.93.212.221/api/user/$userID/';
+    final String url = 'https://bcrecapc.ml/api/user/$userID/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -83,13 +80,11 @@ class _UserHomeState extends State<UserHome> {
     setState(() {
       var convertJson = json.decode(response.body);
       quotes = convertJson['quotes'];
-      // print(quotes);
     });
   }
 
   getDoctors() async {
-    final String url = 'http://192.168.43.2:8000/api/chamberdoctor/';
-    // final String url = 'http://142.93.212.221/api/chamberdoctor/';
+    final String url = 'https://bcrecapc.ml/api/chamberdoctor/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {
@@ -175,10 +170,6 @@ class _UserHomeState extends State<UserHome> {
                     Icons.calendar_today,
                   ),
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => UserAppointment(userID)));
                     Navigator.push(
                         context,
                         PageTransition(
@@ -233,9 +224,6 @@ class _UserHomeState extends State<UserHome> {
               ],
             ),
           ),
-          // appBar: AppBar(
-          //   title: Text("User Home Screen"),
-          // ),
           key: _scaffoldState,
           body: data != null
               ? Stack(
@@ -250,7 +238,6 @@ class _UserHomeState extends State<UserHome> {
                             Container(
                               margin: EdgeInsets.only(top: 10),
                               height: MediaQuery.of(context).size.height * 0.1,
-                              // color: Colors.red,
                               child: Row(
                                 children: [
                                   Container(
@@ -262,7 +249,6 @@ class _UserHomeState extends State<UserHome> {
                                         0.1,
                                     width: MediaQuery.of(context).size.width *
                                         0.75,
-                                    // color: Colors.red,
                                     child: Column(
                                       children: [
                                         Container(
@@ -301,18 +287,13 @@ class _UserHomeState extends State<UserHome> {
                                               ? 'assets/images/man.png'
                                               : 'assets/images/woman.png')),
                                       shape: BoxShape.circle,
-                                      // border: Border.all(),
                                     ),
                                   )
                                 ],
                               ),
                             ),
-                            // SizedBox(
-                            //   height: 30,
-                            // ),
                             Container(
                               margin: EdgeInsets.only(top: 15),
-                              // color: Colors.blue,
                               height: MediaQuery.of(context).size.height * 0.15,
                               child: Row(
                                 mainAxisAlignment:
@@ -321,10 +302,6 @@ class _UserHomeState extends State<UserHome> {
                                   //! Corona Stats
                                   GestureDetector(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) => CoronaStats()));
                                       Navigator.push(
                                           context,
                                           PageTransition(
@@ -373,10 +350,6 @@ class _UserHomeState extends State<UserHome> {
                                   //! News
                                   GestureDetector(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) => News()));
                                       Navigator.push(
                                           context,
                                           PageTransition(
@@ -487,7 +460,6 @@ class _UserHomeState extends State<UserHome> {
                                                 0.2,
                                         autoPlay: true,
                                         autoPlayInterval: Duration(seconds: 6),
-                                        // enlargeCenterPage: true,
                                       ),
                                       itemBuilder: (BuildContext context,
                                           int index, int pageViewIndex) {
@@ -509,8 +481,6 @@ class _UserHomeState extends State<UserHome> {
                                               AutoSizeText(
                                                 quote['quote'],
                                                 maxLines: 3,
-                                                // minFontSize: 14,
-                                                // maxFontSize: 16,
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.white,
@@ -522,7 +492,6 @@ class _UserHomeState extends State<UserHome> {
                                               Container(
                                                 alignment:
                                                     Alignment.centerRight,
-                                                // color: Colors.red,
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
@@ -545,13 +514,9 @@ class _UserHomeState extends State<UserHome> {
                                       ),
                                     ),
                             ),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
                             Container(
                               margin: EdgeInsets.only(top: 25),
                               width: MediaQuery.of(context).size.width,
-                              // color: Colors.red,
                               padding: EdgeInsets.only(left: 20),
                               child: Row(
                                 children: [
@@ -566,12 +531,6 @@ class _UserHomeState extends State<UserHome> {
                                   Spacer(),
                                   GestureDetector(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             AllAvailableDoctors(
-                                      //                 userID, data['user_name'])));
                                       Navigator.push(
                                           context,
                                           PageTransition(
@@ -596,14 +555,10 @@ class _UserHomeState extends State<UserHome> {
                                 ],
                               ),
                             ),
-                            // SizedBox(
-                            //   height: 10,
-                            // ),
 
                             //! Available Doctors List
                             Container(
                               margin: EdgeInsets.only(top: 10),
-                              // color: Colors.yellow,
                               height: MediaQuery.of(context).size.height * 0.34,
                               child: doctors != null
                                   ? ListView.builder(
@@ -615,21 +570,6 @@ class _UserHomeState extends State<UserHome> {
                                         return GestureDetector(
                                           onTap: () {
                                             print(doctor['doctor_name']);
-                                            // print(doctor['registration_id']);
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) => AboutDoctor(
-                                            //             doctor['registration_id'],
-                                            //             userID,
-                                            //             doctor['doctor_name'],
-                                            //             data['user_name'],
-                                            //             doctor[
-                                            //                 'doctor_description'],
-                                            //             doctor['degree'],
-                                            //             doctor['designation'],
-                                            //             doctor['mail_id'],
-                                            //             doctor['phone_no'])));
                                             Navigator.push(
                                                 context,
                                                 PageTransition(
@@ -709,15 +649,6 @@ class _UserHomeState extends State<UserHome> {
                                                             'designation'])
                                                       ],
                                                     ),
-                                                    // Row(
-                                                    //   children: [
-                                                    //     Text('Rating:'),
-                                                    //     SizedBox(
-                                                    //       width: 5,
-                                                    //     ),
-                                                    //     Text('4.5⭐'),
-                                                    //   ],
-                                                    // )
                                                   ],
                                                 ),
                                               ],

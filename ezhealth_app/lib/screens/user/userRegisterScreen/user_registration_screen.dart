@@ -131,8 +131,8 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   }
 
   sendUser(String userID) async {
-    // final String url = 'http://192.168.43.2:8000/api/user/';
-    final String url = 'http://192.168.43.2:8000/api/user/';
+    // final String url = 'https://bcrecapc.ml/api/user/';
+    final String url = 'https://bcrecapc.ml/api/user/';
     try {
       var response = await http.post(Uri.parse(url), body: {
         "registration_id": userID,
@@ -393,17 +393,6 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                             print(confirmPasswordText);
 
                             _saveItem();
-
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => LoginScreen()));
-
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     PageTransition(
-                            //         type: PageTransitionType.rightToLeftWithFade,
-                            //         child: LoginScreen()));
                             FocusScope.of(context).unfocus();
                           }
                         },

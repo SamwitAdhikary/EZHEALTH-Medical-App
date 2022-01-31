@@ -45,8 +45,8 @@ class _MondayScreenState extends State<MondayScreen> {
   }
 
   sendData() async {
-    // final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
-    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
+    // final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
     var response = await http.put(Uri.parse(url), body: {
       "monday_id": doctorId,
       "chamber_location": clinicText,
@@ -66,8 +66,8 @@ class _MondayScreenState extends State<MondayScreen> {
   }
 
   updateChamber() async {
-    // final String url = 'http://192.168.43.2:8000/api/chamber/$doctorId/';
-    final String url = 'http://192.168.43.2:8000/api/chamber/$doctorId/';
+    // final String url = 'https://bcrecapc.ml/api/chamber/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/chamber/$doctorId/';
     try {
       var response = await http.put(Uri.parse(url), body: {
         "chamber_id": doctorId,
@@ -98,8 +98,8 @@ class _MondayScreenState extends State<MondayScreen> {
   }
 
   getData() async {
-    // final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
-    final String url = 'http://192.168.43.2:8000/api/monday/$doctorId/';
+    // final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
+    final String url = 'https://bcrecapc.ml/api/monday/$doctorId/';
     var response = await http.get(Uri.parse(url));
     if (!mounted) return;
     setState(() {

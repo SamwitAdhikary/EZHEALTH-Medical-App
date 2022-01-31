@@ -49,10 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((DataSnapshot snapshot) {
           setState(() {
             if (snapshot.value['role'] == 'Doctor') {
-              // Navigator.pushReplacement(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => DoctorScreen(userId)));
               setDoctorDetails(userId);
               Navigator.pushReplacement(
                 context,
@@ -64,8 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     type: PageTransitionType.rightToLeftWithFade),
               );
             } else if (snapshot.value['role'] == 'User') {
-              // Navigator.pushReplacement(context,
-              //     MaterialPageRoute(builder: (context) => UserHome(userId)));
               setUserDetails(userId);
               Navigator.pushReplacement(
                   context,
@@ -89,8 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
       print(error);
 
       String errorText = getMessageFromErrorCode(error);
-      // ScaffoldMessenger.of(context)
-      //     .showSnackBar(SnackBar(content: Text(errorText)));
       showDialog(
         context: context,
         builder: (_) => AlertDialog(

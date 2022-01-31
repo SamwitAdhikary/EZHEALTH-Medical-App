@@ -19,18 +19,6 @@ Future<void> main() async {
           fontFamily: GoogleFonts.poppins().fontFamily,
         ),
         debugShowCheckedModeBanner: false,
-        // home: Builder(
-        //   builder: (context) {
-        //     if (role == 'Doctor') {
-        //       return DoctorScreen(doctorId);
-        //     } else if (role == 'User') {
-        //       return UserHome(userId);
-        //     } else if (role == null) {
-        //       return GetStartedScreen();
-        //     }
-        //     return GetStartedScreen();
-        //   },
-        // ),
         home: SplashScreen(),
       ),
     ),
