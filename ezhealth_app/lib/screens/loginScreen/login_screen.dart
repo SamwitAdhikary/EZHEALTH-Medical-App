@@ -2,7 +2,6 @@ import 'package:ezhealth_app/screens/doctor_screen/doctor_screen.dart';
 import 'package:ezhealth_app/screens/user/user_dashboard/user_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';

@@ -1,4 +1,4 @@
-package com.samwit.ezhealth
+package com.example.ezhealth_app
 
 import io.flutter.embedding.android.FlutterActivity
 

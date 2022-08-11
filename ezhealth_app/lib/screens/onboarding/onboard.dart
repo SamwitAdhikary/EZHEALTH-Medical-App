@@ -1,10 +1,6 @@
 import 'package:ezhealth_app/config/palette.dart';
 import 'package:ezhealth_app/screens/extra_screens/get_started.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';

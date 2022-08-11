@@ -1,5 +1,4 @@
 import 'package:ezhealth_app/screens/extra_screens/restart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

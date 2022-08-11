@@ -1,8 +1,6 @@
 import 'package:ezhealth_app/screens/doctorRegisterScreen/doctor_registration_screen.dart';
 import 'package:ezhealth_app/screens/user/userRegisterScreen/user_registration_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 

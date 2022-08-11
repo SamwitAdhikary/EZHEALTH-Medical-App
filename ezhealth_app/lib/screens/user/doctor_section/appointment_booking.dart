@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:ezhealth_app/config/palette.dart';
 // import 'package:ezhealth_app/testScreens/user/doctor_section/time_slot.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 // import 'package:page_transition/page_transition.dart';

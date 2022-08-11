@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.samwit.ezhealth">
+    package="com.example.ezhealth_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
